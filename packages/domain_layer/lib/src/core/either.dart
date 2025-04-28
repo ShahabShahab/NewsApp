@@ -13,7 +13,7 @@ sealed class Either<L, R> extends Equatable {
       };
 }
 
-final class Left<L, R> extends Either {
+final class Left<L, R> extends Either<L, R> {
   final L? value;
 
   const Left({this.value});
@@ -22,7 +22,7 @@ final class Left<L, R> extends Either {
   List<Object?> get props => [value];
 }
 
-final class Right<L, R> extends Either {
+final class Right<L, R> extends Either<L,R> {
   final R? value;
 
   const Right({this.value});
