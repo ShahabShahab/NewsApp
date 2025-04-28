@@ -11,6 +11,10 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+  flutter_bloc: ^9.1.0
+  equatable: ^2.0.7
+  domain_layer:
+    path: packages/domain_layer
 
 dev_dependencies:
   flutter_test:
