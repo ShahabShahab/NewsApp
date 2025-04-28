@@ -4,14 +4,15 @@ import 'package:retrofit/http.dart';
 
 part 'news_list_remote_data_source.g.dart';
 
-@RestApi(baseUrl: 'https://newsapi.org/v2')
+@RestApi(baseUrl: 'https://newsapi.org/v2/')
 abstract class NewsListRemoteDataSource {
   factory NewsListRemoteDataSource(Dio dio, {String? baseUrl}) =
       _NewsListRemoteDataSource;
 
-  @GET('/top-headlines')
+  @GET(
+      '/everything?q=microsoft&from=???&to=???&sortBy=???%20&page=1&pageSize=20&apiKey=b49acdf6fe454819a2095abc36ee03ac')
   Future<List<ArticleModel>> getTopHeadlinesUS(
-    @Query('apiKey') String apiKey,
-    @Query('country') String country,
+     String apiKey,
+    String country,
   );
 }

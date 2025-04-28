@@ -12,7 +12,9 @@ class HttpClient {
     ));
 
     dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async {},
+      onRequest: (options, handler) async {
+        return handler.next(options);
+      },
       onResponse: (response, handler) {
         return handler.next(response);
       },

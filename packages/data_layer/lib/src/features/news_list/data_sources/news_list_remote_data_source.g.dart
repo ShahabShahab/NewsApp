@@ -10,12 +10,13 @@ part of 'news_list_remote_data_source.dart';
 
 class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
   _NewsListRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://newsapi.org/v2';
+    baseUrl ??= 'https://newsapi.org/v2/';
   }
 
   final Dio _dio;
 
   String? baseUrl;
+
 
   @override
   Future<List<ArticleModel>> getTopHeadlinesUS(
@@ -23,17 +24,14 @@ class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
     String country,
   ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'apiKey': apiKey,
-      r'country': country,
-    };
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<List<ArticleModel>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/top-headlines',
+            '/everything?q=microsoft&from=???&to=???&sortBy=???%20&page=1&pageSize=20&apiKey=b49acdf6fe454819a2095abc36ee03ac',
             queryParameters: queryParameters,
             data: _data,
           )

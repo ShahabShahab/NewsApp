@@ -13,7 +13,7 @@ class NewsListBloc extends Bloc<NewsListEvent, NewsListState> {
   NewsListBloc(this.getTopHeadlinesUS) : super(NewsListInitial()) {
     on<NewsListEvent>((event, emit) async {
       if (event is FetchHeadLinesEvent) {
-        final result = await getTopHeadlinesUS();
+        final result = await getTopHeadlinesUS.call();
         result.fold((error) {
           Logger.error("Error message: $error");
         }, (data) {
