@@ -19,7 +19,7 @@ class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
 
 
   @override
-  Future<List<ArticleModel>> getTopHeadlinesUS(
+  Future<GetTopHeadlineResponse> getTopHeadlinesUS(
     String apiKey,
     String country,
   ) async {
@@ -27,7 +27,7 @@ class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<ArticleModel>>(
+    final _options = _setStreamType<GetTopHeadlineResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -37,14 +37,10 @@ class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<ArticleModel> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late GetTopHeadlineResponse _value;
     try {
-      _value = _result.data!
-          .map(
-            (dynamic i) => ArticleModel.fromJson(i as Map<String, dynamic>),
-          )
-          .toList();
+      _value = GetTopHeadlineResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
       rethrow;
     }

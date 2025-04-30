@@ -1,4 +1,5 @@
 import 'package:data_layer/src/features/news_list/models/article_model.dart';
+import 'package:data_layer/src/features/news_list/models/get_top_headline_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
@@ -11,8 +12,8 @@ abstract class NewsListRemoteDataSource {
 
   @GET(
       '/everything?q=microsoft&from=???&to=???&sortBy=???%20&page=1&pageSize=20&apiKey=b49acdf6fe454819a2095abc36ee03ac')
-  Future<List<ArticleModel>> getTopHeadlinesUS(
-     String apiKey,
+  Future<GetTopHeadlineResponse> getTopHeadlinesUS(
+    String apiKey,
     String country,
   );
 }

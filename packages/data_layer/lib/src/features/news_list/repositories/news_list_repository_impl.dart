@@ -12,9 +12,8 @@ class NewsListRepositoryImpl implements NewsRepository {
   @override
   Future<Either<DomainFailure, List<Article>>> getTopHeadlinesUS() async {
     try {
-      final List<ArticleModel> models =
-          await dataSource.getTopHeadlinesUS(apiKey, 'US');
-      final articles = models
+      final response = await dataSource.getTopHeadlinesUS(apiKey, 'US');
+      final articles = response.articles!
           .map((element) => Article(
               title: element.title,
               description: element.description,
@@ -22,7 +21,7 @@ class NewsListRepositoryImpl implements NewsRepository {
               content: element.content))
           .toList();
       return Right(value: articles);
-    } on DioException {
+    } on DioException catch (e) {
       return Left(value: ServerFailure());
     }
   }
