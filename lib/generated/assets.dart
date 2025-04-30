@@ -7,5 +7,6 @@ class Assets {
   static const String fontsFredokaMedium = 'assets/fonts/Fredoka-Medium.ttf';
   static const String fontsFredokaRegular = 'assets/fonts/Fredoka-Regular.ttf';
   static const String fontsFredokaSemiBold = 'assets/fonts/Fredoka-SemiBold.ttf';
+  static const String imageError = 'assets/image/error.svg';
 
 }

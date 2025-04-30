@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:code_challenge_news_app/core/wigets/custom_text.dart';
 import 'package:code_challenge_news_app/core/wigets/news_svg.dart';
 import 'package:code_challenge_news_app/generated/assets.dart';
 import 'package:flutter/material.dart';
+import 'package:resourcing/resourcing.dart';
 
 class NewsImageHolder extends StatelessWidget {
   const NewsImageHolder({
@@ -34,8 +36,7 @@ class NewsImageHolder extends StatelessWidget {
             height: height,
             width: width,
             decoration: BoxDecoration(
-              borderRadius:
-                  borderShape ?? BorderRadius.circular(radius ?? 16),
+              borderRadius: borderShape ?? BorderRadius.circular(radius ?? 16),
               image: DecorationImage(
                 image: FileImage(
                   File(url ?? ''),
@@ -45,13 +46,10 @@ class NewsImageHolder extends StatelessWidget {
             ),
           )
         : CachedNetworkImage(
-            imageUrl: url!,
-            // placeholder: (context, url) => NewsSvg(
-            //   assetName: Assets.imageGeneral,
-            //   width: 60,
-            //   height: 60,
-            // ),
-            // errorWidget: (_, s, e) => NewsSvg(assetName: Assets.imageError),
+            imageUrl: url ?? "---",
+            placeholder: (context, url) =>
+                CustomText(text: "Loading...", style: NewsTextStyles.overLine),
+            errorWidget: (_, s, e) => NewsSvg(assetName: Assets.imageError),
             //  SIZE IMG 50 100 300 500 767
             imageBuilder: (
               final context,
