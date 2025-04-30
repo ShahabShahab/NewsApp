@@ -1,10 +1,17 @@
-# 📄 Project README – Code Challenge
+# 📄 Offline-first News APP – Code Challenge
 
 ## 📚 Project Summary
 
 This project demonstrates a clean, scalable Flutter architecture based on Clean Architecture principles.  
 The app fetches and displays news articles from NewsAPI, strictly separating domain, data, and presentation layers.
 
+I spent most of my time designing a new scheme of Clean Architecture in a Flutter-ly fashion, by taking advantage of distinct and independent layers. 
+
+These layers are interacting with each other by following the rules behind Clean Architecture. For example, the presentation layer has no idea that there is a data layer below it. If it needs to fetch some data to consume on its layer, it needs to create a use case for that and get its desired data through the gateway of the Domain layer. 
+
+On the other hand, the Presentation layer has no installed dependency for Dio or Hive.
+
+These strict rules have been applied to each and every one of the four different layers of this architecture.
 ---
 
 ## ⚙️ Technical Stack
