@@ -48,7 +48,7 @@ class NewsImageHolder extends StatelessWidget {
         : CachedNetworkImage(
             imageUrl: url ?? "---",
             placeholder: (context, url) =>
-                CustomText(text: "Loading...", style: NewsTextStyles.overLine),
+                SizedBox(width: 40, child: CustomText(text: "Loading...", style: NewsTextStyles.overLine)),
             errorWidget: (_, s, e) => NewsSvg(assetName: Assets.imageError),
             //  SIZE IMG 50 100 300 500 767
             imageBuilder: (
