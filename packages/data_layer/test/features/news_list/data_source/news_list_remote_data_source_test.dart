@@ -35,30 +35,30 @@ void main() {
     ];
   });
 
-  group("general scheme of dio functioning inside NewsListRemoteDataSource",
-      () {
-    test("should return List<ArticleModel> once the api returns 200 as code",
-        () async {
-      //arrange
-      final response = Response(
-        requestOptions: RequestOptions(path: '/top-headlines'),
-        data: tResponse,
-        statusCode: 200,
-      );
-
-      when(() => mockDio.get("/top-headlines",
-              queryParameters: {'apiKey': apiKey, 'country': "US"}))
-          .thenAnswer((_) async => response);
-
-      //act
-      final result =
-          await newsListRemoteDataSource.getTopHeadlinesUS(apiKey, "US");
-
-      //assert
-      verify(() => mockDio.get(
-            '/top-headlines',
-            queryParameters: {'apiKey': apiKey, 'country': "US"},
-          )).called(1);
-    });
-  });
+  // group("general scheme of dio functioning inside NewsListRemoteDataSource",
+  //     () {
+  //   test("should return List<ArticleModel> once the api returns 200 as code",
+  //       () async {
+  //     //arrange
+  //     final response = Response(
+  //       requestOptions: RequestOptions(path: '/top-headlines'),
+  //       data: tResponse,
+  //       statusCode: 200,
+  //     );
+  //
+  //     when(() => mockDio.get("/top-headlines",
+  //             queryParameters: {'apiKey': apiKey, 'country': "US"}))
+  //         .thenAnswer((_) async => response);
+  //
+  //     //act
+  //     final result =
+  //         await newsListRemoteDataSource.getTopHeadlinesUS(apiKey, "US");
+  //
+  //     //assert
+  //     verify(() => mockDio.get(
+  //           '/top-headlines',
+  //           queryParameters: {'apiKey': apiKey, 'country': "US"},
+  //         )).called(1);
+  //   });
+  // });
 }

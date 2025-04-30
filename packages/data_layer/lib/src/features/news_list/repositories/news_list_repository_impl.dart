@@ -10,9 +10,10 @@ class NewsListRepositoryImpl implements NewsRepository {
   NewsListRepositoryImpl({required this.dataSource});
 
   @override
-  Future<Either<DomainFailure, List<Article>>> getTopHeadlinesUS() async {
+  Future<Either<DomainFailure, List<Article>>> getTopHeadlinesUS(
+      {required int page}) async {
     try {
-      final response = await dataSource.getTopHeadlinesUS(apiKey, 'US');
+      final response = await dataSource.getTopHeadlinesUS(page);
       final articles = response.articles!
           .map((element) => Article(
               title: element.title,

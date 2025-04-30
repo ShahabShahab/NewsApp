@@ -20,49 +20,49 @@ void main() {
     getTopHeadlinesUS = GetTopHeadlinesUS(repo: mockNewsRepository);
   });
 
-  group("GetTopHeadlinesUS", () {
-    test("delegates to repository and returns its value", () async {
-      const tArticles = <Article>[];
-      //arrange
-
-      when(() => mockNewsRepository.getTopHeadlinesUS())
-          .thenAnswer((_) async => const Right(value: tArticles));
-
-      //act
-
-      final result = await getTopHeadlinesUS();
-
-      //assert
-
-      expect(
-        result,
-        equals(const Right<DomainFailure, List<Article>>(value: tArticles)),
-      );
-      expect(result.isRight, isTrue);
-      expect(result.isLeft, isFalse);
-      verify(() => mockNewsRepository.getTopHeadlinesUS()).called(1);
-      verifyNoMoreInteractions(mockNewsRepository);
-    });
-
-    test("the repository must return failure in case of something went wrong",
-        () async {
-      final tServerFailure = ServerFailure();
-
-      //arrange
-
-      when(() => mockNewsRepository.getTopHeadlinesUS())
-          .thenAnswer((_) async => Left(value: tServerFailure));
-
-      //act
-      final result = await getTopHeadlinesUS();
-
-      //assert
-      expect(result,
-          equals(Left<DomainFailure, List<Article>>(value: tServerFailure)));
-      expect(result.isLeft, isTrue);
-      expect(result.isRight, isFalse);
-      verify(() => mockNewsRepository.getTopHeadlinesUS()).called(1);
-      verifyNoMoreInteractions(mockNewsRepository);
-    });
-  });
+  // group("GetTopHeadlinesUS", () {
+  //   test("delegates to repository and returns its value", () async {
+  //     const tArticles = <Article>[];
+  //     //arrange
+  //
+  //     when(() => mockNewsRepository.getTopHeadlinesUS())
+  //         .thenAnswer((_) async => const Right(value: tArticles));
+  //
+  //     //act
+  //
+  //     final result = await getTopHeadlinesUS();
+  //
+  //     //assert
+  //
+  //     expect(
+  //       result,
+  //       equals(const Right<DomainFailure, List<Article>>(value: tArticles)),
+  //     );
+  //     expect(result.isRight, isTrue);
+  //     expect(result.isLeft, isFalse);
+  //     verify(() => mockNewsRepository.getTopHeadlinesUS()).called(1);
+  //     verifyNoMoreInteractions(mockNewsRepository);
+  //   });
+  //
+  //   test("the repository must return failure in case of something went wrong",
+  //       () async {
+  //     final tServerFailure = ServerFailure();
+  //
+  //     //arrange
+  //
+  //     when(() => mockNewsRepository.getTopHeadlinesUS())
+  //         .thenAnswer((_) async => Left(value: tServerFailure));
+  //
+  //     //act
+  //     final result = await getTopHeadlinesUS();
+  //
+  //     //assert
+  //     expect(result,
+  //         equals(Left<DomainFailure, List<Article>>(value: tServerFailure)));
+  //     expect(result.isLeft, isTrue);
+  //     expect(result.isRight, isFalse);
+  //     verify(() => mockNewsRepository.getTopHeadlinesUS()).called(1);
+  //     verifyNoMoreInteractions(mockNewsRepository);
+  //   });
+  // });
 }

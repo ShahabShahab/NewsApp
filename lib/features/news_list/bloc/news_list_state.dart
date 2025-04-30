@@ -16,9 +16,14 @@ final class NewsListLoading extends NewsListState {
 
 final class NewsListItemsLoaded extends NewsListState {
   final List<Article> articles;
+  final bool isLastPage;
 
-  const NewsListItemsLoaded({required this.articles});
+  const NewsListItemsLoaded({
+    required this.articles,
+    required this.isLastPage,
+  });
 
   @override
-  List<Object?> get props => [articles];
+  List<Object?> get props => [articles, isLastPage];
 }
+

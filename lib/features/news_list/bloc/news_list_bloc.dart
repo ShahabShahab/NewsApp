@@ -2,26 +2,42 @@ import 'package:code_challenge_news_app/core/logging/logger.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain_layer/domain_layer.dart';
-
-part 'news_list_event.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 part 'news_list_state.dart';
 
-class NewsListBloc extends Bloc<NewsListEvent, NewsListState> {
-  final GetTopHeadlinesUS getTopHeadlinesUS;
+class NewsListCubit extends Cubit<PagingState<int, Article>> {
+  final GetTopHeadlinesUS _getTopHeadlinesUS;
 
-  NewsListBloc(this.getTopHeadlinesUS) : super(NewsListInitial()) {
-    on<NewsListEvent>((event, emit) async {
-      if (event is FetchHeadLinesEvent) {
-        emit(NewsListLoading());
-        final result = await getTopHeadlinesUS.call();
-        result.fold((error) {
-          Logger.error("Error message: $error");
-        }, (data) {
-          Logger.info("Info message: ${data.length}");
-          emit(NewsListItemsLoaded(articles: data));
-        });
-      }
-    });
+  NewsListCubit(this._getTopHeadlinesUS) : super(PagingState<int, Article>());
+
+  Future<void> fetchHeadlines() async {
+    if (state.isLoading) return;
+
+    emit(state.copyWith(isLoading: true, error: null));
+
+    try {
+      final newKey = (state.keys?.last ?? 0) + 1;
+      final newItems = await _getTopHeadlinesUS.call(page: newKey);
+      newItems.fold((failure) {
+        emit(state.copyWith(
+          error: failure,
+          isLoading: false,
+        ));
+      }, (data) {
+        final isLastPage = data.isEmpty;
+        emit(state.copyWith(
+          pages: [...?state.pages, data],
+          keys: [...?state.keys, newKey],
+          hasNextPage: !isLastPage,
+          isLoading: false,
+        ));
+      });
+    } catch (error) {
+      emit(state.copyWith(
+        error: error,
+        isLoading: false,
+      ));
+    }
   }
 }

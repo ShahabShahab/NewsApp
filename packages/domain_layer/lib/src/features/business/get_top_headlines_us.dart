@@ -8,6 +8,6 @@ class GetTopHeadlinesUS {
 
   GetTopHeadlinesUS({required this.repo});
 
-  Future<Either<DomainFailure, List<Article>>> call() async =>
-      await repo.getTopHeadlinesUS();
+  Future<Either<DomainFailure, List<Article>>> call({required int page}) async =>
+      await repo.getTopHeadlinesUS(page: page);
 }

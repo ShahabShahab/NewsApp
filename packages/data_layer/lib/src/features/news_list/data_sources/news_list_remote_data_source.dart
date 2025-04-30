@@ -11,9 +11,8 @@ abstract class NewsListRemoteDataSource {
       _NewsListRemoteDataSource;
 
   @GET(
-      '/everything?q=microsoft&from=???&to=???&sortBy=???%20&page=1&pageSize=20&apiKey=b49acdf6fe454819a2095abc36ee03ac')
+      '/everything?q=microsoft&from=???&to=???&sortBy=???%20&pageSize=20&apiKey=b49acdf6fe454819a2095abc36ee03ac')
   Future<GetTopHeadlineResponse> getTopHeadlinesUS(
-    String apiKey,
-    String country,
+    @Query("page") int page
   );
 }

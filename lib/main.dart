@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       home: BlocProvider(
         create: (_) =>
-            NewsListBloc(GetTopHeadlinesUS(repo: resolve<NewsRepository>())),
+            NewsListCubit(GetTopHeadlinesUS(repo: resolve<NewsRepository>())),
         child: NewsListPage(),
       ),
     );

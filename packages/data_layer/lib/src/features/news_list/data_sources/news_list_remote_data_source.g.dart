@@ -9,7 +9,7 @@ part of 'news_list_remote_data_source.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
 class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
-  _NewsListRemoteDataSource(this._dio, {this.baseUrl}) {
+  _NewsListRemoteDataSource(this._dio, {this.baseUrl,}) {
     baseUrl ??= 'https://newsapi.org/v2/';
   }
 
@@ -17,21 +17,17 @@ class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
 
   String? baseUrl;
 
-
   @override
-  Future<GetTopHeadlineResponse> getTopHeadlinesUS(
-    String apiKey,
-    String country,
-  ) async {
+  Future<GetTopHeadlineResponse> getTopHeadlinesUS(int page) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<GetTopHeadlineResponse>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/everything?q=microsoft&from=???&to=???&sortBy=???%20&page=1&pageSize=20&apiKey=b49acdf6fe454819a2095abc36ee03ac',
+            '/everything?q=microsoft&from=???&to=???&sortBy=???%20&pageSize=20&apiKey=b49acdf6fe454819a2095abc36ee03ac',
             queryParameters: queryParameters,
             data: _data,
           )
