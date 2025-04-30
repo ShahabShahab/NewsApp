@@ -22,6 +22,7 @@ void main() {
           'https://platform.theverge.com/wp-content/uploads/sites/2/2025/04/STKS487_ANTITRUST_2__STK093_GOOGLE.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200',
       publishedAt: DateTime.parse('2025-04-28T12:00:00Z'),
       content: 'C1',
+      source: null
     ),
     ArticleModel(
       title: 'Google is fixing outdated Pixel weather forecasts',
@@ -33,6 +34,7 @@ void main() {
           'https://platform.theverge.com/wp-content/uploads/sites/2/2025/04/DSC08087.jpg.webp?quality=90&strip=all&crop=0,15.095986038394,100,69.808027923211',
       publishedAt: DateTime.parse('2025-04-28T13:00:00Z'),
       content: 'C2',
+      source: null
     ),
   ];
 
