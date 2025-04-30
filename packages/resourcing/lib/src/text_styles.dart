@@ -78,14 +78,14 @@ class NewsTextStyles {
   );
 
   static TextStyle button16 = TextStyle(
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w300,
     fontSize: 16,
     color: NewsColors.gray.shade700,
   );
 
   // Caption - Small Text
   static TextStyle caption = TextStyle(
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w300,
     fontSize: 12,
     color: NewsColors.gray.shade900,
   );

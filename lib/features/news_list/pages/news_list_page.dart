@@ -19,14 +19,11 @@ class NewsListPage extends StatelessWidget {
           appBar: AppBar(),
           body: ListView.builder(
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  spacing: 10,
-                  children: [
-                    NewsListItemRow(article: state.articles[index]),
-                  ],
-                ),
+              return Column(
+                spacing: 10,
+                children: [
+                  NewsListItemRow(article: state.articles[index]),
+                ],
               );
             },
             itemCount: state.articles.length,

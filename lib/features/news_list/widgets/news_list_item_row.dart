@@ -1,5 +1,8 @@
+import 'package:code_challenge_news_app/core/wigets/custom_text.dart';
+import 'package:code_challenge_news_app/core/wigets/news_image_holder.dart';
 import 'package:domain_layer/domain_layer.dart';
 import 'package:flutter/material.dart';
+import 'package:resourcing/resourcing.dart';
 
 class NewsListItemRow extends StatelessWidget {
   final Article article;
@@ -17,33 +20,29 @@ class NewsListItemRow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         child: Row(
           children: [
-            const Icon(Icons.article_outlined, size: 40, color: Colors.blueGrey),
+            NewsImageHolder(
+              url: article.url,
+              height: 40,
+              width: 40,
+            ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    article.title,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                  CustomText(
+                    text: article.title,
+                    style: NewsTextStyles.heading3,
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    article.description,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Colors.black87,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  CustomText(
+                    text: article.description,
+                    style: NewsTextStyles.body1,
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    article.content,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.grey[600],
-                    ),
+                  CustomText(
+                    text: article.content,
+                    style: NewsTextStyles.caption,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

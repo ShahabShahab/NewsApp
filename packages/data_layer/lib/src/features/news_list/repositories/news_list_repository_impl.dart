@@ -17,7 +17,7 @@ class NewsListRepositoryImpl implements NewsRepository {
           .map((element) => Article(
               title: element.title,
               description: element.description,
-              url: element.url,
+              url: element.urlToImage,
               content: element.content))
           .toList();
       return Right(value: articles);

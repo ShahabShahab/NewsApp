@@ -4,6 +4,7 @@ import 'package:domain_layer/domain_layer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injection_layer/injection_layer.dart';
+import 'package:resourcing/resourcing.dart';
 
 void main() {
   setUpDependencies();
@@ -18,13 +19,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+          fontFamily: NewsFonts.mainFont,
+          scaffoldBackgroundColor: Colors.white),
+      darkTheme: ThemeData(
+          fontFamily: NewsFonts.mainFont,
+          scaffoldBackgroundColor: Colors.white),
+      themeMode: ThemeMode.light,
       home: BlocProvider(
-          create: (_) =>
-              NewsListBloc(GetTopHeadlinesUS(repo: resolve<NewsRepository>())),
-      child: NewsListPage(),),
+        create: (_) =>
+            NewsListBloc(GetTopHeadlinesUS(repo: resolve<NewsRepository>())),
+        child: NewsListPage(),
+      ),
     );
   }
 }
