@@ -1,0 +1,44 @@
+import 'package:code_challenge_news_app/core/wigets/news_lottie.dart';
+import 'package:code_challenge_news_app/core/wigets/news_text.dart';
+import 'package:code_challenge_news_app/features/news_list/bloc/news_list_bloc.dart';
+import 'package:code_challenge_news_app/features/news_list/pages/news_list_page.dart';
+import 'package:code_challenge_news_app/generated/assets.dart';
+import 'package:domain_layer/domain_layer.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injection_layer/injection_layer.dart';
+import 'package:resourcing/resourcing.dart';
+
+class SplashPage extends StatelessWidget {
+  const SplashPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(Duration(seconds: 3), () => Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                create: (_) => NewsListCubit(
+                    GetTopHeadlinesUS(repo: resolve<NewsRepository>())),
+                child: NewsListPage(),
+              ))));
+    });
+    return Scaffold(
+      backgroundColor: NewsColors.gray.shade800,
+      body: Column(
+        spacing: 20,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const NewsLottie(
+            asset: Assets.lottieSplash,
+            height: 400,
+          ),
+          NewsText(
+              text: "News API is loading...",
+              style: NewsTextStyles.heading1.copyWith(color: NewsColors.white))
+        ],
+      ),
+    );
+  }
+}

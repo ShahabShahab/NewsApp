@@ -48,6 +48,7 @@ flutter:
     - assets/
     - assets/fonts/
     - assets/image/
+    - assets/lottie/
 
 
   uses-material-design: true

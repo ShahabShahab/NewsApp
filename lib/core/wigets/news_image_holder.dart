@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:code_challenge_news_app/core/wigets/custom_text.dart';
+import 'package:code_challenge_news_app/core/wigets/news_text.dart';
 import 'package:code_challenge_news_app/core/wigets/news_svg.dart';
 import 'package:code_challenge_news_app/generated/assets.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class NewsImageHolder extends StatelessWidget {
         : CachedNetworkImage(
             imageUrl: url ?? "---",
             placeholder: (context, url) =>
-                SizedBox(width: 40, child: CustomText(text: "Loading...", style: NewsTextStyles.overLine)),
+                SizedBox(width: 40, child: NewsText(text: "Loading...", style: NewsTextStyles.overLine)),
             errorWidget: (_, s, e) => NewsSvg(assetName: Assets.imageError),
             //  SIZE IMG 50 100 300 500 767
             imageBuilder: (

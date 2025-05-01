@@ -1,4 +1,4 @@
-import 'package:code_challenge_news_app/core/wigets/custom_text.dart';
+import 'package:code_challenge_news_app/core/wigets/news_text.dart';
 import 'package:code_challenge_news_app/core/wigets/news_image_holder.dart';
 import 'package:domain_layer/domain_layer.dart';
 import 'package:flutter/material.dart';
@@ -30,17 +30,17 @@ class NewsListItemRow extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText(
+                  NewsText(
                     text: article.title,
                     style: NewsTextStyles.heading3,
                   ),
                   const SizedBox(height: 6),
-                  CustomText(
+                  NewsText(
                     text: article.description,
                     style: NewsTextStyles.body1,
                   ),
                   const SizedBox(height: 6),
-                  CustomText(
+                  NewsText(
                     text: article.content,
                     style: NewsTextStyles.caption,
                     maxLines: 1,
