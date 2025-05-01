@@ -1,14 +1,18 @@
+import 'dart:io';
+
 import 'package:code_challenge_news_app/features/news_list/bloc/news_list_bloc.dart';
 import 'package:code_challenge_news_app/features/news_list/pages/news_list_page.dart';
 import 'package:domain_layer/domain_layer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injection_layer/injection_layer.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:resourcing/resourcing.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await setUpDependencies();
+  final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
+  await initDepenencies(localDateBaseDirectory: appDocumentsDir.path);
   runApp(const MyApp());
 }
 

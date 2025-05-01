@@ -8,6 +8,8 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  flutter:
+    sdk: flutter
   dio: ^5.8.0+1
   json_annotation: ^4.9.0
   retrofit: ^4.4.2
