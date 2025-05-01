@@ -12,7 +12,7 @@ import 'package:resourcing/resourcing.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
-  await initDepenencies(localDateBaseDirectory: appDocumentsDir.path);
+  await initDependencies(localDateBaseDirectory: appDocumentsDir.path);
   runApp(const MyApp());
 }
 

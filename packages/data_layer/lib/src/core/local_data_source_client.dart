@@ -8,6 +8,7 @@ class LocalDataSourceClient {
     Hive.init(directory);
     Hive.registerAdapter(ArticleModelAdapter());
     Hive.registerAdapter(LastArticleSyncTimeAdapter());
+    Hive.registerAdapter(SourceAdapter());
 
     await Hive.openBox<ArticleModel>(newsBox);
     await Hive.openBox<LastArticleSyncTime>(lastArticleSyncTimeBox);

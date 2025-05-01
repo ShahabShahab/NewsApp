@@ -41,8 +41,8 @@ void main() {
   setUpAll(() {
     mockNewsListRemoteDataSource =
         NewsListRemoteDataSource(HttpClient.getInstance());
-    newsListRepositoryImpl = NewsListRepositoryImpl(
-        dataSource: NewsListRemoteDataSource(HttpClient.getInstance()));
+    // newsListRepositoryImpl = NewsListRepositoryImpl(
+    //     remoteDataSource: NewsListRemoteDataSource(HttpClient.getInstance()));
   });
 
   // group("NewsListRepositoryImpl tests", () {

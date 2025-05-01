@@ -1,11 +1,10 @@
-import 'dart:ffi';
 
 import 'package:data_layer/src/core/keys.dart';
 import 'package:data_layer/src/features/news_list/models/article_model.dart';
 import 'package:data_layer/src/features/news_list/models/last_article_sync_time.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class ArticleLocalDataSource {
+class NewsListLocalDataSource {
   static const _key = 'lastSync';
 
   Future<Box<ArticleModel>> _box() => Hive.openBox<ArticleModel>(newsBox);
@@ -34,9 +33,9 @@ class ArticleLocalDataSource {
     await box.clear();
   }
 
-  Future<void> saveSyncTime(DateTime value) async {
+  Future<void> saveSyncTime() async {
     final box = await _lastSyncBox();
-    final millis = value.millisecondsSinceEpoch;
+    final millis = DateTime.now().millisecondsSinceEpoch;
     await box.put(
         _key, LastArticleSyncTime(lastArticleSyncTimeInMillis: millis));
   }
