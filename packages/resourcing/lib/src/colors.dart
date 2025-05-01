@@ -3,24 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class NewsColors {
-
   static Color white = Color(0xFFFFFFFF);
 
   static const ColorMaterial primary = ColorMaterial(
-    shade10: Color(0xFFFFFFFF),
-    shade50: Color(0xFFFFEBEE),
-    shade100: Color(0xFFFCE2E2),
-    shade200: Color(0xFFEF9A9A),
-    shade300: Color(0xFFFF9996),
-    shade400: Color(0xFFEF5350),
-    shade500: Color(0xFFF96864),
-    shade600: Color(0xFFF96864),
-    shade700: Color(0xFFD1403C),
-    shade800: Color(0xFFB71C1C),
-    shade900: Color(0xFF880E4F),
-  );
-
-  static const ColorMaterial secondary = ColorMaterial(
     shade10: Color(0xFFF1FCFF),
     shade50: Color(0xFFEDF9FF),
     shade100: Color(0xFFC9ECFD),
@@ -34,6 +19,20 @@ class NewsColors {
     shade900: Color(0xFF12648D),
   );
 
+  static const ColorMaterial secondary = ColorMaterial(
+    shade10: Color(0xFFFFFFFF),
+    shade50: Color(0xFFFFEBEE),
+    shade100: Color(0xFFFCE2E2),
+    shade200: Color(0xFFEF9A9A),
+    shade300: Color(0xFFFF9996),
+    shade400: Color(0xFFEF5350),
+    shade500: Color(0xFFF96864),
+    shade600: Color(0xFFF96864),
+    shade700: Color(0xFFD1403C),
+    shade800: Color(0xFFB71C1C),
+    shade900: Color(0xFF880E4F),
+  );
+
   static const Color background = Color(0xFFF5F5F5);
   static const Color darkBackground = Color(0xFF333333);
   static const Color cardBackground = Color(0xFFFFFFFF);
@@ -42,18 +41,6 @@ class NewsColors {
   static const Color textSecondary = Color(0xFF171717);
   static const Color textButton = Color(0xFF333333);
   static const Color textHint = Color(0xFFBDBDBD);
-
-  static const Color itineraryDay1 = Color(0xFFFF2056);
-  static const Color itineraryDay2 = Color(0xFF615FFF);
-  static const Color itineraryDay3 = Color(0xFF00A63E);
-  static const Color itineraryDay4 = Color(0xFFC800DE);
-  static const Color itineraryDay5 = Color(0xFFE17100);
-
-  static const Color attractionHotel = Color(0xFFF96864);
-  static const Color attractionFood = Color(0xFFFF6900);
-  static const Color attractionTourism = Color(0xFF7F22FE);
-  static const Color attractionShopping = Color(0xFF00B8DB);
-  static const Color attractionNature = Color(0xFF497D00);
 
   static const ColorMaterial gray = ColorMaterial(
     shade10: Color(0xFFF9FAEA),
@@ -69,57 +56,11 @@ class NewsColors {
     shade900: Color(0xFF101828),
   );
 
-  static const ColorMaterial orange = ColorMaterial(
-    shade10: Color(0xFFFFF4E6),
-    shade50: Color(0xFFFFE0B2),
-    shade100: Color(0xFFFFCC80),
-    shade200: Color(0xFFFFA64D),
-    shade300: Color(0xFFFF8500),
-    shade400: Color(0xFFFF7800),
-    shade500: Color(0xFFFF6900),
-    shade600: Color(0xFFE65D00),
-    shade700: Color(0xFFCC5200),
-    shade800: Color(0xFFB34700),
-    shade900: Color(0xFF802F00),
-  );
-
-  static const ColorMaterial red = ColorMaterial(
-    shade10: Color(0xFFFDE8E8),
-    shade50: Color(0xFFFFEBEE),
-    shade100: Color(0xFFE02424),
-    shade200: Color(0xFFC81E1E),
-    shade300: Color(0xFF9B1C1C),
-    shade400: Color(0xFFB71C1C),
-    shade500: Color(0xFFE33F4C),
-    shade600: Color(0xFF9B1C1C),
-    shade700: Color(0xFFC81E1E),
-    shade800: Color(0xFFE02424),
-    shade900: Color(0xFFD32F2F),
-  );
-
   static const Color divider = Color(0xFFBDBDBD);
   static const Color shadow = Color(0x40000000);
 
   static const Color accent = Color(0xFF00C853);
   static const Color error = Color(0xFFD32F2F);
-
-  static const Color pastel01 = Color(0xFFFEFCE8);
-  static const Color pastel02 = Color(0xFFFEF2F2);
-  static const Color pastel03 = Color(0xFFECFDF5);
-  static const Color pastel04 = Color(0xFFF5F3FF);
-  static const Color pastel05 = Color(0xFFECFEFF);
-
-  static Color getRandomColor() {
-    List<Color> attractionColors = [
-      attractionHotel,
-      attractionFood,
-      attractionTourism,
-      attractionShopping,
-      attractionNature,
-    ];
-    final random = Random();
-    return attractionColors[random.nextInt(attractionColors.length)];
-  }
 }
 
 class ColorMaterial {
