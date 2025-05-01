@@ -9,4 +9,7 @@ export 'src/core/either.dart';
 export 'src/features/news_list/repository/news_repository.dart';
 export 'src/features/news_list/entity/article.dart';
 export 'src/features/news_list/business/get_top_headlines_us.dart';
+export 'src/features/splash/business/get_app_config.dart';
+export 'src/features/splash/entity/app_config.dart';
+export 'src/features/splash/repository/splash_repository.dart';
 

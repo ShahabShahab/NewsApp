@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:code_challenge_news_app/features/splash/cubit/splash_cubit.dart';
 import 'package:code_challenge_news_app/features/splash/pages/splash_page.dart';
 import 'package:data_layer/src/core/connectivity_service.dart';
 import 'package:code_challenge_news_app/features/news_list/bloc/news_list_bloc.dart';
@@ -36,7 +37,11 @@ class MyApp extends StatelessWidget {
           fontFamily: NewsFonts.mainFont,
           scaffoldBackgroundColor: Colors.white),
       themeMode: ThemeMode.light,
-      home: SplashPage(),
+      home: BlocProvider(
+        create: (_) => SplashCubit(
+            GetAppConfig(splashRepository: resolve<SplashRepository>())),
+        child: SplashPage(),
+      ),
     );
   }
 }
