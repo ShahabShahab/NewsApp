@@ -25,6 +25,8 @@ class NewsListLocalDataSource {
       final offset = ((page - 1) * 20);
       if (offset >= articleList.length) {
         return [];
+      } else if (offset + 20 > articleList.length) {
+        return box.values.toList().sublist(offset);
       }
       return box.values.toList().sublist(offset, offset + 20);
     }

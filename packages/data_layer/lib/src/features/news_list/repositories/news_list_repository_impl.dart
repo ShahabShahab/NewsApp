@@ -29,7 +29,11 @@ class NewsListRepositoryImpl implements NewsRepository {
         articles = _convertArticleModelsToArticleEntities(response);
       } else {
         final response = await _fetchArticlesFromRemote(page);
-        await localDataSource.cacheArticles(response);
+        if (page == 1) {
+          await localDataSource.cacheArticles(response);
+        } else {
+          await localDataSource.addArticles(response);
+        }
         articles = _convertArticleModelsToArticleEntities(response);
       }
       return Right(value: articles);
