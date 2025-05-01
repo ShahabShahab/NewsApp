@@ -22,7 +22,7 @@ class NewsListRepositoryImpl implements NewsRepository {
       late List<Article> articles;
       bool hasNoConnection = await connectivityService.hasNoConnection();
       if (hasNoConnection) {
-        final response = await localDataSource.getCachedArticles();
+        final response = await localDataSource.getCachedArticles(page);
         if (response.isEmpty) {
           return Right(value: []);
         }
@@ -33,7 +33,7 @@ class NewsListRepositoryImpl implements NewsRepository {
         articles = _convertArticleModelsToArticleEntities(response);
       }
       return Right(value: articles);
-    } on DioException catch (e, s) {
+    } on DioException catch (e) {
       return Left(value: ServerFailure());
     } catch (e) {
       print(e.toString());
