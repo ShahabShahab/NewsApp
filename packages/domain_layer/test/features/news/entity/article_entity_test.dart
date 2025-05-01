@@ -1,4 +1,4 @@
-import 'package:domain_layer/src/features/entity/article.dart';
+import 'package:domain_layer/src/features/news_list/entity/article.dart';
 import 'package:equatable/equatable.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
