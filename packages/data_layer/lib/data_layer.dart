@@ -9,3 +9,4 @@ export 'src/features/news_list/data_sources/news_list_local_data_source.dart';
 export 'src/core/local_data_source_client.dart';
 export 'src/core/http_client.dart';
 export 'src/features/news_list/repositories/news_list_repository_impl.dart';
+export 'src/core/connectivity_service.dart';

@@ -1,3 +1,4 @@
+import 'package:data_layer/src/core/connectivity_service.dart';
 import 'package:data_layer/src/features/news_list/data_sources/news_list_local_data_source.dart';
 import 'package:data_layer/src/features/news_list/data_sources/news_list_remote_data_source.dart';
 import 'package:data_layer/src/features/news_list/models/article_model.dart';
@@ -7,30 +8,27 @@ import 'package:domain_layer/domain_layer.dart';
 class NewsListRepositoryImpl implements NewsRepository {
   final NewsListRemoteDataSource remoteDataSource;
   final NewsListLocalDataSource localDataSource;
+  final ConnectivityService connectivityService;
 
   NewsListRepositoryImpl(
-      {required this.remoteDataSource, required this.localDataSource});
+      {required this.remoteDataSource,
+      required this.localDataSource,
+      required this.connectivityService});
 
   @override
   Future<Either<DomainFailure, List<Article>>> getTopHeadlinesUS(
       {required int page}) async {
     try {
-      final lastSyncTime = await localDataSource.fetchSyncTime();
       late List<Article> articles;
-      if (lastSyncTime != null) {
-        final now = DateTime.now().millisecondsSinceEpoch;
-        if (now - lastSyncTime > 1 * 60 * 1000) {
-          final response = await _fetchArticlesFromRemote(page);
-          await localDataSource.saveSyncTime();
-          await localDataSource.cacheArticles(response);
-          articles = _convertArticleModelsToArticleEntities(response);
-        } else {
-          final response = await localDataSource.getCachedArticles();
-          articles = _convertArticleModelsToArticleEntities(response);
+      bool hasNoConnection = await connectivityService.hasNoConnection();
+      if (hasNoConnection) {
+        final response = await localDataSource.getCachedArticles();
+        if (response.isEmpty) {
+          return Right(value: []);
         }
+        articles = _convertArticleModelsToArticleEntities(response);
       } else {
         final response = await _fetchArticlesFromRemote(page);
-        await localDataSource.saveSyncTime();
         await localDataSource.cacheArticles(response);
         articles = _convertArticleModelsToArticleEntities(response);
       }

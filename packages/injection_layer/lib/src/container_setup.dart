@@ -14,7 +14,10 @@ Future<void> initDependencies({required String localDateBaseDirectory}) async {
   registerLazySingleton<NewsListRemoteDataSource>(
       () => NewsListRemoteDataSource(HttpClient.getInstance()));
 
+  registerLazySingleton<ConnectivityService>(() => ConnectivityService());
+
   registerFactory<NewsRepository>(() => NewsListRepositoryImpl(
       remoteDataSource: resolve<NewsListRemoteDataSource>(),
-      localDataSource: resolve<NewsListLocalDataSource>()));
+      localDataSource: resolve<NewsListLocalDataSource>(),
+      connectivityService: resolve<ConnectivityService>()));
 }

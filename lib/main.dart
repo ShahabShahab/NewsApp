@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:data_layer/src/core/connectivity_service.dart';
 import 'package:code_challenge_news_app/features/news_list/bloc/news_list_bloc.dart';
 import 'package:code_challenge_news_app/features/news_list/pages/news_list_page.dart';
 import 'package:domain_layer/domain_layer.dart';
@@ -12,7 +13,9 @@ import 'package:resourcing/resourcing.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
-  await initDependencies(localDateBaseDirectory: appDocumentsDir.path);
+  await initDependencies(
+    localDateBaseDirectory: appDocumentsDir.path,
+  );
   runApp(const MyApp());
 }
 
