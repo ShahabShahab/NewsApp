@@ -1,4 +1,3 @@
-# 📄 Code Challenge Document
 
 ## ✅ What I cared most about in development
 
