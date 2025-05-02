@@ -47,10 +47,18 @@ class NewsImageHolder extends StatelessWidget {
           )
         : CachedNetworkImage(
             imageUrl: url ?? "---",
-            placeholder: (context, url) =>
-                SizedBox(width: 40, child: NewsText(text: "Loading...", style: NewsTextStyles.overLine)),
-            errorWidget: (_, s, e) => NewsSvg(assetName: Assets.imageError),
-            //  SIZE IMG 50 100 300 500 767
+            placeholder: (context, url) => SizedBox(
+                width: width,
+                height: height,
+                child: Center(
+                  child: NewsText(
+                      text: "Loading...", style: NewsTextStyles.overLine),
+                )),
+            errorWidget: (_, s, e) => NewsSvg(
+              assetName: Assets.imageError,
+              width: width,
+              height: height,
+            ),
             imageBuilder: (
               final context,
               final imageProvider,
@@ -59,11 +67,14 @@ class NewsImageHolder extends StatelessWidget {
               height: height,
               width: width,
               decoration: BoxDecoration(
-                borderRadius:
-                    borderShape ?? BorderRadius.circular(radius ?? 16),
+                border: Border.all(
+                  width: 2,
+                  color: NewsColors.primary.shade600,
+                ),
+                shape: BoxShape.circle,
                 image: DecorationImage(
                   image: imageProvider,
-                  fit: fit ?? BoxFit.contain,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),

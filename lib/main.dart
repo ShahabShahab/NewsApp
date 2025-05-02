@@ -32,10 +32,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
           fontFamily: NewsFonts.mainFont,
-          scaffoldBackgroundColor: Colors.white),
-      darkTheme: ThemeData(
-          fontFamily: NewsFonts.mainFont,
-          scaffoldBackgroundColor: Colors.white),
+          scaffoldBackgroundColor: NewsColors.gray.shade500),
       themeMode: ThemeMode.light,
       home: BlocProvider(
         create: (_) => SplashCubit(

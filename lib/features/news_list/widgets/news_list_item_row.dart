@@ -27,8 +27,8 @@ class NewsListItemRow extends StatelessWidget {
                 children: [
                   NewsImageHolder(
                     url: article.url,
-                    height: 40,
-                    width: 40,
+                    height: 80,
+                    width: 80,
                   ),
                   const SizedBox(width: 16),
                   Expanded(
