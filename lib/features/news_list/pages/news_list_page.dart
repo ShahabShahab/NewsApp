@@ -34,7 +34,12 @@ class _NewsListPageState extends State<NewsListPage> {
             },
             builderDelegate: PagedChildBuilderDelegate<Article>(
               itemBuilder: (context, article, index) =>
-                  NewsListItemRow(article: article),
+                  Column(
+                    children: [
+                      NewsListItemRow(article: article),
+                      SizedBox(height: 10,)
+                    ],
+                  ),
             ),
           );
         }));

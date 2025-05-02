@@ -21,7 +21,8 @@ class Article extends Equatable {
       this.source});
 
   @override
-  List<Object?> get props => [title, description, url, content];
+  List<Object?> get props =>
+      [title, description, url, content, urlToImage, publishedAt, source];
 
   Article copyWith({
     String? query,
@@ -46,7 +47,7 @@ class Article extends Equatable {
   }
 }
 
-class Source {
+class Source extends Equatable {
   Source({
     this.id,
     this.name,
@@ -54,4 +55,7 @@ class Source {
 
   String? id;
   String? name;
+
+  @override
+  List<Object?> get props => [id, name];
 }
