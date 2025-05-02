@@ -29,7 +29,7 @@ class SplashPage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: NewsColors.gray.shade500,
+        backgroundColor: NewsColors.white,
         body: Column(
           spacing: 20,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +41,7 @@ class SplashPage extends StatelessWidget {
             NewsText(
                 text: "News API is loading...",
                 style:
-                    NewsTextStyles.heading1.copyWith(color: NewsColors.white))
+                    NewsTextStyles.heading1.copyWith(color: NewsColors.gray.shade700))
           ],
         ),
       ),

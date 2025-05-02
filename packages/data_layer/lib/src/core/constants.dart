@@ -1,1 +1,1 @@
-const int pageSize = 40;
+const int pageSize = 25;

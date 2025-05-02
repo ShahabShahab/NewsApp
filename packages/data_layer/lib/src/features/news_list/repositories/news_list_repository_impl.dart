@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:data_layer/src/core/connectivity_service.dart';
@@ -43,7 +44,7 @@ class NewsListRepositoryImpl implements NewsRepository {
       }
       return Right(value: articles);
     } on DioException catch (e) {
-      final error = ServerError.fromJson(e.response as Map<String, String>);
+      final error = ServerError.fromJson(e.response!.data);
       return Left(value: ServerFailure(message: error.message));
     } catch (e) {
       return Left(value: ServerFailure(message: e.toString()));

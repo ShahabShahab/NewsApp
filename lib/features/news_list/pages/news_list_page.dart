@@ -31,6 +31,10 @@ class _NewsListPageState extends State<NewsListPage> {
 
   bool get isTablet => MediaQuery.of(context).size.width >= 600;
 
+  void _fetchHeadlines(){
+    BlocProvider.of<NewsListCubit>(context).fetchHeadlines();
+  }
+
   @override
   Widget build(BuildContext context) {
     Logger.info("Width of the tablet: ${MediaQuery.of(context).size.width}");
@@ -49,7 +53,7 @@ class _NewsListPageState extends State<NewsListPage> {
                 return PagedListView<int, Article>(
                   state: state,
                   fetchNextPage: () {
-                    BlocProvider.of<NewsListCubit>(context).fetchHeadlines();
+                    _fetchHeadlines();
                   },
                   builderDelegate: PagedChildBuilderDelegate<Article>(
                     itemBuilder: (context, article, index) => Column(
@@ -96,8 +100,10 @@ class _NewsListPageState extends State<NewsListPage> {
                         const SizedBox(height: 10),
                       ],
                     ),
-                    firstPageErrorIndicatorBuilder: (context) =>  NewsNewPageErrorIndicator(message: state.error.toString()),
-                    newPageErrorIndicatorBuilder: (context) =>  NewsNewPageErrorIndicator(message: state.error.toString())
+                    firstPageErrorIndicatorBuilder: (context) =>  NewsNewPageErrorIndicator(message: state.error.toString(),
+                    onTap: ()=> _fetchHeadlines(),),
+                    newPageErrorIndicatorBuilder: (context) =>  NewsNewPageErrorIndicator(message: state.error.toString(),
+                    onTap: () => _fetchHeadlines(),)
                   ),
                 );
               },
