@@ -30,7 +30,9 @@ class NewsListRepositoryImpl implements NewsRepository {
       if (hasNoConnection) {
         final response = await localDataSource.getCachedArticles(page);
         if (response.isEmpty) {
-          return Right(value: []);
+          return Left(
+              value: ServerFailure(
+                  message: "Your are not connected to the internet."));
         }
         articles = _convertArticleModelsToArticleEntities(response);
       } else {
@@ -70,7 +72,7 @@ class NewsListRepositoryImpl implements NewsRepository {
 
   Future<List<ArticleModel>> _fetchArticlesFromRemote(int page) async {
     final now = DateTime.now();
-    final yesterday = now.subtract(const Duration(days: 1));
+    final yesterday = now.subtract(const Duration(days: 3));
     final fromDate = yesterday.toString().split(" ")[0];
     final toDate = now.toString().split(" ")[0];
     final queries = ['Microsoft', 'Apple', 'Google', 'Tesla'];

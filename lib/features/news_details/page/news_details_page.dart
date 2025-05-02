@@ -1,3 +1,4 @@
+import 'package:code_challenge_news_app/core/utils/date_service.dart';
 import 'package:code_challenge_news_app/core/utils/url_service.dart';
 import 'package:code_challenge_news_app/core/wigets/news_image_holder.dart';
 import 'package:code_challenge_news_app/core/wigets/news_text.dart';
@@ -45,9 +46,8 @@ class NewsDetailPage extends StatelessWidget {
                   ),
                   NewsText(
                     text: article.publishedAt != null
-                        ? DateFormat.yMMMMd()
-                            .add_Hm()
-                            .format(article.publishedAt!)
+                        ? DateService.convertToDateTimeToUserReadableDate(
+                            article.publishedAt!)
                         : "---",
                     style: NewsTextStyles.heading4,
                   ),

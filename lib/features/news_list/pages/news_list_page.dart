@@ -37,7 +37,6 @@ class _NewsListPageState extends State<NewsListPage> {
 
   @override
   Widget build(BuildContext context) {
-    Logger.info("Width of the tablet: ${MediaQuery.of(context).size.width}");
     return Scaffold(
       backgroundColor: NewsColors.primary.shade900,
       appBar: AppBar(

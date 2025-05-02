@@ -20,6 +20,7 @@ class NewsListLocalDataSource {
   Future<List<ArticleModel>> getCachedArticles(int page) async {
     final box = await _box();
     final articleList = box.values.toList();
+    if (articleList.isEmpty) return [];
     if (page == 1) {
       return articleList.sublist(0, pageSize);
     } else {
