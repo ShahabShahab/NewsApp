@@ -1,5 +1,6 @@
 import 'package:code_challenge_news_app/core/logging/logger.dart';
 import 'package:code_challenge_news_app/core/wigets/news_lottie.dart';
+import 'package:code_challenge_news_app/core/wigets/news_new_page_error_indicator.dart';
 import 'package:code_challenge_news_app/features/news_details/page/news_details_page.dart';
 import 'package:code_challenge_news_app/features/news_list/bloc/news_list_bloc.dart';
 import 'package:code_challenge_news_app/features/news_list/widgets/news_list_item_row.dart';
@@ -95,6 +96,8 @@ class _NewsListPageState extends State<NewsListPage> {
                         const SizedBox(height: 10),
                       ],
                     ),
+                    firstPageErrorIndicatorBuilder: (context) =>  NewsNewPageErrorIndicator(message: state.error.toString()),
+                    newPageErrorIndicatorBuilder: (context) =>  NewsNewPageErrorIndicator(message: state.error.toString())
                   ),
                 );
               },

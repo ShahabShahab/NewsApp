@@ -21,7 +21,7 @@ class NewsListCubit extends Cubit<PagingState<int, Article>> {
       final newItems = await _getTopHeadlinesUS.call(page: newKey);
       newItems.fold((failure) {
         emit(state.copyWith(
-          error: failure,
+          error: (failure as ServerFailure).message,
           isLoading: false,
         ));
       }, (data) {
@@ -35,7 +35,7 @@ class NewsListCubit extends Cubit<PagingState<int, Article>> {
       });
     } catch (error) {
       emit(state.copyWith(
-        error: error,
+        error: error.toString(),
         isLoading: false,
       ));
     }

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:data_layer/src/core/connectivity_service.dart';
 import 'package:data_layer/src/core/constants.dart';
 import 'package:data_layer/src/core/keys.dart';
+import 'package:data_layer/src/core/server_error.dart';
 import 'package:data_layer/src/features/news_list/data_sources/news_list_local_data_source.dart';
 import 'package:data_layer/src/features/news_list/data_sources/news_list_remote_data_source.dart';
 import 'package:data_layer/src/features/news_list/models/article_model.dart';
@@ -42,10 +43,10 @@ class NewsListRepositoryImpl implements NewsRepository {
       }
       return Right(value: articles);
     } on DioException catch (e) {
-      return Left(value: ServerFailure());
+      final error = ServerError.fromJson(e.response as Map<String, String>);
+      return Left(value: ServerFailure(message: error.message));
     } catch (e) {
-      print(e.toString());
-      return Left(value: ServerFailure());
+      return Left(value: ServerFailure(message: e.toString()));
     }
   }
 
