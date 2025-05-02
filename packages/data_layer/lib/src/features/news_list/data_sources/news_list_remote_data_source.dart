@@ -11,8 +11,14 @@ abstract class NewsListRemoteDataSource {
       _NewsListRemoteDataSource;
 
   @GET(
-      '/everything?q=google&from=???&to=???&sortBy=???%20&pageSize=20&apiKey=b49acdf6fe454819a2095abc36ee03ac')
+      '/everything')
   Future<GetTopHeadlineResponse> getTopHeadlinesUS(
-    @Query("page") int page
+      @Query('apiKey') String apiKey,
+      @Query('page') int page,
+      @Query('pageSize') int pageSize,
+      @Query('q') String query,
+      @Query('from') String fromDate,
+      @Query('to') String toDate,
+      @Query("language") String language
   );
 }

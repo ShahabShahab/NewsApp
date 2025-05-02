@@ -13,7 +13,7 @@ class NewsListItemRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 3,
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       clipBehavior: Clip.antiAlias,
       child: Padding(
@@ -49,8 +49,6 @@ class NewsListItemRow extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(width: 12),
-            const Icon(Icons.chevron_right, color: Colors.grey),
           ],
         ),
       ),

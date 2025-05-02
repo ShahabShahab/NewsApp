@@ -13,6 +13,7 @@ void main() {
 
   final tModels = <ArticleModel>[
     ArticleModel(
+      query: "google",
       title: 'Google loses adtech monopoly case',
       description:
           'The US Department of Justice has won its antitrust case against Google, which accused the company of operating a monopoly in the advertising technology industry. In a ruling on Thursday, US District Judge Leonie Brinkema says Google’s anticompetitive practice',
@@ -25,6 +26,7 @@ void main() {
       source: null
     ),
     ArticleModel(
+        query: "google",
       title: 'Google is fixing outdated Pixel weather forecasts',
       description:
           'Some Google Pixel users have found that their At a Glance widget has been showing outdated weather forecasts, as reported by Android Police. But the company says in a statement to The Verge that it’s addressing the issue. According to one user on Reddit who...',

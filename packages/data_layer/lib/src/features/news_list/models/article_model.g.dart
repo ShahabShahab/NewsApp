@@ -17,34 +17,37 @@ class ArticleModelAdapter extends TypeAdapter<ArticleModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ArticleModel(
-      title: fields[0] as String,
-      description: fields[1] as String,
-      url: fields[2] as String,
-      urlToImage: fields[3] as String,
-      publishedAt: fields[4] as DateTime,
-      content: fields[5] as String,
+      title: fields[0] as String?,
+      description: fields[1] as String?,
+      url: fields[2] as String?,
+      urlToImage: fields[3] as String?,
+      publishedAt: fields[4] as DateTime?,
+      content: fields[5] as String?,
       source: fields[6] as Source?,
+      query: fields[7] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ArticleModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
       ..write(obj.description)
       ..writeByte(2)
       ..write(obj.url)
+      ..writeByte(5)
+      ..write(obj.content)
       ..writeByte(3)
       ..write(obj.urlToImage)
       ..writeByte(4)
       ..write(obj.publishedAt)
-      ..writeByte(5)
-      ..write(obj.content)
       ..writeByte(6)
-      ..write(obj.source);
+      ..write(obj.source)
+      ..writeByte(7)
+      ..write(obj.query);
   }
 
   @override
@@ -100,15 +103,18 @@ class SourceAdapter extends TypeAdapter<Source> {
 // **************************************************************************
 
 ArticleModel _$ArticleModelFromJson(Map<String, dynamic> json) => ArticleModel(
-      title: json['title'] as String,
-      description: json['description'] as String,
-      url: json['url'] as String,
-      urlToImage: json['urlToImage'] as String,
-      publishedAt: DateTime.parse(json['publishedAt'] as String),
-      content: json['content'] as String,
+      title: json['title'] as String?,
+      description: json['description'] as String?,
+      url: json['url'] as String?,
+      urlToImage: json['urlToImage'] as String?,
+      publishedAt: json['publishedAt'] == null
+          ? null
+          : DateTime.parse(json['publishedAt'] as String),
+      content: json['content'] as String?,
       source: json['source'] == null
           ? null
           : Source.fromJson(json['source'] as Map<String, dynamic>),
+      query: json['query'] as String?,
     );
 
 Map<String, dynamic> _$ArticleModelToJson(ArticleModel instance) =>
@@ -116,10 +122,11 @@ Map<String, dynamic> _$ArticleModelToJson(ArticleModel instance) =>
       'title': instance.title,
       'description': instance.description,
       'url': instance.url,
-      'urlToImage': instance.urlToImage,
-      'publishedAt': instance.publishedAt.toIso8601String(),
       'content': instance.content,
+      'urlToImage': instance.urlToImage,
+      'publishedAt': instance.publishedAt?.toIso8601String(),
       'source': instance.source,
+      'query': instance.query,
     };
 
 Source _$SourceFromJson(Map<String, dynamic> json) => Source(

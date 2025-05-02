@@ -1,3 +1,4 @@
+import 'package:data_layer/src/core/constants.dart';
 import 'package:data_layer/src/core/keys.dart';
 import 'package:data_layer/src/features/news_list/models/article_model.dart';
 import 'package:hive/hive.dart';
@@ -20,15 +21,15 @@ class NewsListLocalDataSource {
     final box = await _box();
     final articleList = box.values.toList();
     if (page == 1) {
-      return articleList.sublist(0, 20);
+      return articleList.sublist(0, pageSize);
     } else {
-      final offset = ((page - 1) * 20);
+      final offset = ((page - 1) * pageSize);
       if (offset >= articleList.length) {
         return [];
-      } else if (offset + 20 > articleList.length) {
+      } else if (offset + pageSize > articleList.length) {
         return box.values.toList().sublist(offset);
       }
-      return box.values.toList().sublist(offset, offset + 20);
+      return box.values.toList().sublist(offset, offset + pageSize);
     }
   }
 

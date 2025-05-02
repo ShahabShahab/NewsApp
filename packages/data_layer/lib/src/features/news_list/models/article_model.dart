@@ -8,19 +8,21 @@ part 'article_model.g.dart';
 @JsonSerializable()
 class ArticleModel {
   @HiveField(0)
-  final String title;
+  final String? title;
   @HiveField(1)
-  final String description;
+  final String? description;
   @HiveField(2)
-  final String url;
-  @HiveField(3)
-  final String urlToImage;
-  @HiveField(4)
-  final DateTime publishedAt;
+  final String? url;
   @HiveField(5)
-  final String content;
+  final String? content;
+  @HiveField(3)
+  final String? urlToImage;
+  @HiveField(4)
+  final DateTime? publishedAt;
   @HiveField(6)
   final Source? source;
+  @HiveField(7)
+  final String? query;
 
   ArticleModel(
       {required this.title,
@@ -29,7 +31,30 @@ class ArticleModel {
       required this.urlToImage,
       required this.publishedAt,
       required this.content,
-      required this.source});
+      required this.source,
+      required this.query});
+
+  ArticleModel copyWith({
+    String? title,
+    String? description,
+    String? url,
+    String? urlToImage,
+    DateTime? publishedAt,
+    String? content,
+    Source? source,
+    String? query,
+  }) {
+    return ArticleModel(
+      title: title ?? this.title,
+      description: description ?? this.description,
+      url: url ?? this.url,
+      urlToImage: urlToImage ?? this.urlToImage,
+      publishedAt: publishedAt ?? this.publishedAt,
+      content: content ?? this.content,
+      source: source ?? this.source,
+      query: query ?? this.query,
+    );
+  }
 
   factory ArticleModel.fromJson(Map<String, dynamic> json) =>
       _$ArticleModelFromJson(json);

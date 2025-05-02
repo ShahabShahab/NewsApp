@@ -25,22 +25,18 @@ class _NewsListPageState extends State<NewsListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text("Top Headlines")),
-        body: BlocConsumer<NewsListCubit, PagingState<int, Article>>(
-          listener: (context, state) {
-
-          },
-          builder: (context, state) {
-            return PagedListView<int, Article>(
-              state: state,
-              fetchNextPage: () {
-                BlocProvider.of<NewsListCubit>(context).fetchHeadlines();
-              },
-              builderDelegate: PagedChildBuilderDelegate<Article>(
-                itemBuilder: (context, article, index) =>
-                    NewsListItemRow(article: article),
-              ),
-            );
-          },
-        ));
+        body: BlocBuilder<NewsListCubit, PagingState<int, Article>>(
+            builder: (context, state) {
+          return PagedListView<int, Article>(
+            state: state,
+            fetchNextPage: () {
+              BlocProvider.of<NewsListCubit>(context).fetchHeadlines();
+            },
+            builderDelegate: PagedChildBuilderDelegate<Article>(
+              itemBuilder: (context, article, index) =>
+                  NewsListItemRow(article: article),
+            ),
+          );
+        }));
   }
 }

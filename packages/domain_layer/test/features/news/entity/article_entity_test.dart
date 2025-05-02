@@ -8,6 +8,7 @@ void main() {
 
   const tArticle = Article(
       title: "A",
+      query: "q",
       description: "This is the very beginning of our A article",
       url: "https://x.com",
       content: "This is the very content of our Article");
@@ -28,6 +29,7 @@ void main() {
 
       const other = Article(
           title: "A",
+          query: "q",
           description: "This is the very beginning of our A article",
           url: "https://x.com",
           content: "This is the very content of our Article");
@@ -43,6 +45,7 @@ void main() {
 
       const different = Article(
           title: "B",
+          query: "q",
           description: "This is the very beginning of our A article",
           url: "https://x.com",
           content: "This is the very content of our Article");
