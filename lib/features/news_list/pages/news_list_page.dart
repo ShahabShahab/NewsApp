@@ -1,3 +1,4 @@
+import 'package:code_challenge_news_app/core/logging/logger.dart';
 import 'package:code_challenge_news_app/core/wigets/news_lottie.dart';
 import 'package:code_challenge_news_app/features/news_details/page/news_details_page.dart';
 import 'package:code_challenge_news_app/features/news_list/bloc/news_list_bloc.dart';
@@ -17,6 +18,8 @@ class NewsListPage extends StatefulWidget {
 }
 
 class _NewsListPageState extends State<NewsListPage> {
+  Article? selectedArticle;
+
   @override
   void initState() {
     super.initState();
@@ -25,62 +28,92 @@ class _NewsListPageState extends State<NewsListPage> {
     });
   }
 
+  bool get isTablet => MediaQuery.of(context).size.width >= 600;
+
   @override
   Widget build(BuildContext context) {
+    Logger.info("Width of the tablet: ${MediaQuery.of(context).size.width}");
     return Scaffold(
-        backgroundColor: NewsColors.primary.shade900,
-        appBar: AppBar(
-          title: const Text("Top Headlines"),
-          backgroundColor: NewsColors.gray.shade300,
-        ),
-        body: BlocBuilder<NewsListCubit, PagingState<int, Article>>(
-            builder: (context, state) {
-          return PagedListView<int, Article>(
-            state: state,
-            fetchNextPage: () {
-              BlocProvider.of<NewsListCubit>(context).fetchHeadlines();
-            },
-            builderDelegate: PagedChildBuilderDelegate<Article>(
-                itemBuilder: (context, article, index) => Column(
+      backgroundColor: NewsColors.primary.shade900,
+      appBar: AppBar(
+        title: const Text("Top Headlines"),
+        backgroundColor: NewsColors.gray.shade300,
+      ),
+      body: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: BlocBuilder<NewsListCubit, PagingState<int, Article>>(
+              builder: (context, state) {
+                return PagedListView<int, Article>(
+                  state: state,
+                  fetchNextPage: () {
+                    BlocProvider.of<NewsListCubit>(context).fetchHeadlines();
+                  },
+                  builderDelegate: PagedChildBuilderDelegate<Article>(
+                    itemBuilder: (context, article, index) => Column(
                       children: [
                         NewsListItemRow(
-                            article: article,
-                            onArticleTap: (article) => Navigator.push(
+                          article: article,
+                          onArticleTap: (Article article) {
+                            if (isTablet) {
+                              setState(() {
+                                if (selectedArticle != null &&
+                                    article.title == selectedArticle!.title) {
+                                  selectedArticle = null;
+                                } else{
+                                  selectedArticle = article;
+                                }
+                              });
+                            } else {
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        NewsDetailPage(article: article)))),
-                        SizedBox(
-                          height: 10,
-                        )
+                                  builder: (_) => NewsDetailPage(article: article),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 10),
                       ],
                     ),
-                firstPageProgressIndicatorBuilder: (context) {
-                  return Center(
-                    child: SizedBox(
+                    firstPageProgressIndicatorBuilder: (_) => Center(
                       child: NewsLottie(
                         asset: Assets.lottieSplash,
                         width: 200,
                         height: 200,
                       ),
                     ),
-                  );
-                },
-                newPageProgressIndicatorBuilder: (context) {
-                  return Column(
-                    children: [
-                      NewsLottie(
-                        asset: Assets.lottieSplash,
-                        width: 100,
-                        height: 100,
+                    newPageProgressIndicatorBuilder: (_) => Column(
+                      children: [
+                        NewsLottie(
+                          asset: Assets.lottieSplash,
+                          width: 100,
+                          height: 100,
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          if (isTablet && selectedArticle != null)
+            Expanded(
+              flex: 3,
+              child: selectedArticle == null
+                  ? Center(
+                      child: Text(
+                        "Select an article",
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
-                      SizedBox(
-                        height: 10,
-                      )
-                    ],
-                  );
-                }),
-          );
-        }));
+                    )
+                  : NewsDetailPage(article: selectedArticle!),
+            ),
+        ],
+      ),
+    );
   }
 }

@@ -2,9 +2,6 @@ import 'dart:io';
 
 import 'package:code_challenge_news_app/features/splash/cubit/splash_cubit.dart';
 import 'package:code_challenge_news_app/features/splash/pages/splash_page.dart';
-import 'package:data_layer/src/core/connectivity_service.dart';
-import 'package:code_challenge_news_app/features/news_list/bloc/news_list_bloc.dart';
-import 'package:code_challenge_news_app/features/news_list/pages/news_list_page.dart';
 import 'package:domain_layer/domain_layer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
