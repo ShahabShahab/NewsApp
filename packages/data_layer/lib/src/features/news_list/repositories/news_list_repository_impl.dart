@@ -8,7 +8,6 @@ import 'package:data_layer/src/features/news_list/data_sources/news_list_remote_
 import 'package:data_layer/src/features/news_list/models/article_model.dart';
 import 'package:dio/dio.dart';
 import 'package:domain_layer/domain_layer.dart';
-import 'package:flutter/cupertino.dart';
 
 class NewsListRepositoryImpl implements NewsRepository {
   final NewsListRemoteDataSource remoteDataSource;
@@ -54,11 +53,16 @@ class NewsListRepositoryImpl implements NewsRepository {
       List<ArticleModel> articleModels) {
     return articleModels
         .map((element) => Article(
-            query: element.query ?? "",
-            title: element.title ?? "",
-            description: element.description ?? "",
-            url: element.urlToImage ?? "",
-            content: element.content ?? ""))
+              publishedAt: element.publishedAt,
+              sourceName: element.source?.name,
+              author: element.author,
+              query: element.query ?? "",
+              title: element.title ?? "",
+              description: element.description ?? "",
+              url: element.url ?? "",
+              urlToImage: element.urlToImage,
+              content: element.content ?? "",
+            ))
         .toList();
   }
 
@@ -88,6 +92,7 @@ class NewsListRepositoryImpl implements NewsRepository {
               publishedAt: element.publishedAt,
               content: element.content,
               source: element.source,
+              author: element.author,
               query: q))
           .toList());
     }

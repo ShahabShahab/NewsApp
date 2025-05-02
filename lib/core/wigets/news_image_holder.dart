@@ -13,72 +13,50 @@ class NewsImageHolder extends StatelessWidget {
     required this.url,
     required this.height,
     required this.width,
-    this.imageSize,
-    this.fit,
-    this.radius,
-    this.borderShape,
-    this.isPath = false,
+    this.shape
+
   });
 
   final String? url;
-  final bool isPath;
   final double height;
   final double width;
-  final int? imageSize;
-  final BoxFit? fit;
-  final double? radius;
-  final BorderRadius? borderShape;
+  final BoxShape? shape;
 
   @override
   Widget build(final BuildContext context) {
-    return isPath
-        ? Container(
-            height: height,
-            width: width,
-            decoration: BoxDecoration(
-              borderRadius: borderShape ?? BorderRadius.circular(radius ?? 16),
-              image: DecorationImage(
-                image: FileImage(
-                  File(url ?? ''),
-                ),
-                fit: fit ?? BoxFit.contain,
-              ),
-            ),
-          )
-        : CachedNetworkImage(
-            imageUrl: url ?? "---",
-            placeholder: (context, url) => SizedBox(
-                width: width,
-                height: height,
-                child: Center(
-                  child: NewsText(
-                      text: "Loading...", style: NewsTextStyles.overLine),
-                )),
-            errorWidget: (_, s, e) => NewsSvg(
-              assetName: Assets.imageError,
-              width: width,
-              height: height,
-            ),
-            imageBuilder: (
-              final context,
-              final imageProvider,
-            ) =>
-                Container(
-              height: height,
-              width: width,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 2,
-                  color: NewsColors.primary.shade600,
-                ),
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            fit: BoxFit.cover,
-          );
+    return CachedNetworkImage(
+      imageUrl: url ?? "---",
+      placeholder: (context, url) => SizedBox(
+          width: width,
+          height: height,
+          child: Center(
+            child: NewsText(text: "Loading...", style: NewsTextStyles.overLine),
+          )),
+      errorWidget: (_, s, e) => NewsSvg(
+        assetName: Assets.imageError,
+        width: width,
+        height: height,
+      ),
+      imageBuilder: (
+        final context,
+        final imageProvider,
+      ) =>
+          Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: NewsColors.primary.shade600,
+          ),
+          shape: shape ?? BoxShape.rectangle,
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.fill,
+          ),
+        ),
+      ),
+      fit: BoxFit.cover,
+    );
   }
 }

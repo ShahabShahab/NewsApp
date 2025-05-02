@@ -25,29 +25,32 @@ class ArticleModelAdapter extends TypeAdapter<ArticleModel> {
       content: fields[5] as String?,
       source: fields[6] as Source?,
       query: fields[7] as String?,
+      author: fields[8] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ArticleModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
       ..write(obj.description)
       ..writeByte(2)
       ..write(obj.url)
-      ..writeByte(5)
-      ..write(obj.content)
       ..writeByte(3)
       ..write(obj.urlToImage)
       ..writeByte(4)
       ..write(obj.publishedAt)
+      ..writeByte(5)
+      ..write(obj.content)
       ..writeByte(6)
       ..write(obj.source)
       ..writeByte(7)
-      ..write(obj.query);
+      ..write(obj.query)
+      ..writeByte(8)
+      ..write(obj.author);
   }
 
   @override
@@ -115,6 +118,7 @@ ArticleModel _$ArticleModelFromJson(Map<String, dynamic> json) => ArticleModel(
           ? null
           : Source.fromJson(json['source'] as Map<String, dynamic>),
       query: json['query'] as String?,
+      author: json['author'] as String?,
     );
 
 Map<String, dynamic> _$ArticleModelToJson(ArticleModel instance) =>
@@ -122,11 +126,12 @@ Map<String, dynamic> _$ArticleModelToJson(ArticleModel instance) =>
       'title': instance.title,
       'description': instance.description,
       'url': instance.url,
-      'content': instance.content,
       'urlToImage': instance.urlToImage,
       'publishedAt': instance.publishedAt?.toIso8601String(),
+      'content': instance.content,
       'source': instance.source,
       'query': instance.query,
+      'author': instance.author,
     };
 
 Source _$SourceFromJson(Map<String, dynamic> json) => Source(

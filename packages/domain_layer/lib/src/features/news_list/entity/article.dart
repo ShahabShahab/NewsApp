@@ -8,7 +8,8 @@ class Article extends Equatable {
   final String content;
   final String? urlToImage;
   final DateTime? publishedAt;
-  final Source? source;
+  final String? sourceName;
+  final String? author;
 
   const Article(
       {required this.query,
@@ -18,44 +19,40 @@ class Article extends Equatable {
       required this.content,
       this.publishedAt,
       this.urlToImage,
-      this.source});
+      this.sourceName,
+      this.author});
 
   @override
-  List<Object?> get props =>
-      [title, description, url, content, urlToImage, publishedAt, source];
+  List<Object?> get props => [
+        title,
+        description,
+        url,
+        content,
+        urlToImage,
+        publishedAt,
+        sourceName,
+        author
+      ];
 
-  Article copyWith({
-    String? query,
-    String? title,
-    String? description,
-    String? url,
-    String? content,
-    DateTime? publishedAt,
-    String? urlToImage,
-    Source? source,
-  }) {
+  Article copyWith(
+      {String? query,
+      String? title,
+      String? description,
+      String? url,
+      String? content,
+      DateTime? publishedAt,
+      String? urlToImage,
+      String? sourceName,
+      String? author}) {
     return Article(
-      query: query ?? this.query,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      url: url ?? this.url,
-      content: content ?? this.content,
-      publishedAt: publishedAt ?? this.publishedAt,
-      urlToImage: urlToImage ?? this.urlToImage,
-      source: source ?? this.source,
-    );
+        query: query ?? this.query,
+        title: title ?? this.title,
+        description: description ?? this.description,
+        url: url ?? this.url,
+        content: content ?? this.content,
+        publishedAt: publishedAt ?? this.publishedAt,
+        urlToImage: urlToImage ?? this.urlToImage,
+        sourceName: sourceName ?? this.sourceName,
+        author: author ?? this.author);
   }
-}
-
-class Source extends Equatable {
-  Source({
-    this.id,
-    this.name,
-  });
-
-  String? id;
-  String? name;
-
-  @override
-  List<Object?> get props => [id, name];
 }

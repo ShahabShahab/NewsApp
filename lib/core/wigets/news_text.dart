@@ -6,18 +6,20 @@ class NewsText extends StatelessWidget {
       required this.text,
       required this.style,
       this.maxLines = 1,
+      this.align = TextAlign.center,
       this.overflow});
 
   final String text;
   final TextStyle style;
   final int? maxLines;
+  final TextAlign? align;
   final TextOverflow? overflow;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      textAlign: TextAlign.center,
+      textAlign: align,
       style: style,
       maxLines: maxLines,
       overflow: overflow,

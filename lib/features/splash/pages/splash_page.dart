@@ -29,6 +29,7 @@ class SplashPage extends StatelessWidget {
         }
       },
       child: Scaffold(
+        backgroundColor: NewsColors.gray.shade500,
         body: Column(
           spacing: 20,
           mainAxisAlignment: MainAxisAlignment.center,

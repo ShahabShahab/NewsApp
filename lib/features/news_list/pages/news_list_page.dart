@@ -1,4 +1,5 @@
 import 'package:code_challenge_news_app/core/wigets/news_lottie.dart';
+import 'package:code_challenge_news_app/features/news_details/page/news_details_page.dart';
 import 'package:code_challenge_news_app/features/news_list/bloc/news_list_bloc.dart';
 import 'package:code_challenge_news_app/features/news_list/widgets/news_list_item_row.dart';
 import 'package:code_challenge_news_app/generated/assets.dart';
@@ -27,7 +28,7 @@ class _NewsListPageState extends State<NewsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NewsColors.primary.shade900,
+        backgroundColor: NewsColors.primary.shade900,
         appBar: AppBar(
           title: const Text("Top Headlines"),
           backgroundColor: NewsColors.gray.shade300,
@@ -42,7 +43,13 @@ class _NewsListPageState extends State<NewsListPage> {
             builderDelegate: PagedChildBuilderDelegate<Article>(
                 itemBuilder: (context, article, index) => Column(
                       children: [
-                        NewsListItemRow(article: article),
+                        NewsListItemRow(
+                            article: article,
+                            onArticleTap: (article) => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        NewsDetailPage(article: article)))),
                         SizedBox(
                           height: 10,
                         )
@@ -67,7 +74,9 @@ class _NewsListPageState extends State<NewsListPage> {
                         width: 100,
                         height: 100,
                       ),
-                      SizedBox(height: 10,)
+                      SizedBox(
+                        height: 10,
+                      )
                     ],
                   );
                 }),

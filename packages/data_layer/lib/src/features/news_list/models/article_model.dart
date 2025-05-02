@@ -13,38 +13,42 @@ class ArticleModel {
   final String? description;
   @HiveField(2)
   final String? url;
-  @HiveField(5)
-  final String? content;
   @HiveField(3)
   final String? urlToImage;
   @HiveField(4)
   final DateTime? publishedAt;
+  @HiveField(5)
+  final String? content;
   @HiveField(6)
   final Source? source;
   @HiveField(7)
   final String? query;
+  @HiveField(8)
+  final String? author;
 
   ArticleModel(
-      {required this.title,
-      required this.description,
-      required this.url,
-      required this.urlToImage,
-      required this.publishedAt,
-      required this.content,
-      required this.source,
-      required this.query});
+      {this.title,
+      this.description,
+      this.url,
+      this.urlToImage,
+      this.publishedAt,
+      this.content,
+      this.source,
+      this.query,
+      this.author});
 
-  ArticleModel copyWith({
-    String? title,
-    String? description,
-    String? url,
-    String? urlToImage,
-    DateTime? publishedAt,
-    String? content,
-    Source? source,
-    String? query,
-  }) {
+  ArticleModel copyWith(
+      {String? title,
+      String? description,
+      String? url,
+      String? urlToImage,
+      DateTime? publishedAt,
+      String? content,
+      Source? source,
+      String? query,
+      String? author}) {
     return ArticleModel(
+      author: author ?? this.author,
       title: title ?? this.title,
       description: description ?? this.description,
       url: url ?? this.url,
