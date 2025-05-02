@@ -1,103 +1,106 @@
-# 📄 Offline-first News APP – Code Challenge
+# 📄 Code Challenge Document
 
-## 📚 Project Summary
+## ✅ What I cared most about in development
 
-This project demonstrates a clean, scalable Flutter architecture based on Clean Architecture principles.  
-The app fetches and displays news articles from NewsAPI, strictly separating domain, data, and presentation layers.
-
-I spent most of my time designing a new scheme of Clean Architecture in a Flutter-ly fashion, by taking advantage of distinct and independent layers. 
-
-These layers are interacting with each other by following the rules behind Clean Architecture. For example, the presentation layer has no idea that there is a data layer below it. If it needs to fetch some data to consume on its layer, it needs to create a use case for that and get its desired data through the gateway of the Domain layer. 
-
-On the other hand, the Presentation layer has no installed dependency for Dio or Hive.
-
-These strict rules have been applied to each and every one of the four different layers of this architecture.
----
-
-## ⚙️ Technical Stack
-
-| Layer         | Details |
-|---------------|---------|
-| Domain Layer  | Entities, Repositories (abstract), Use Cases (business logic) |
-| Data Layer    | API integrations using Dio and Retrofit, Models, Repository implementations |
-| Injection Layer | Dependency setup using GetIt (singleton, lazy singleton, factory) |
-| Main App      | UI scaffolding, consumes domain-only |
+- 🧩 App Architecture  
+- ⚙️ Functionality of the app  
+- 📄 Documentation  
+- 🖌️ Design  
+- 📱 Responsiveness  
+- 🧪 Test Strategy  
 
 ---
 
-## 📊 Code Metrics
+## 🚫 Not implemented
 
-| Metric                 | Value  |
-|-------------------------|--------|
-| **Total Dart Files**     | XX |
-| **Total Lines of Code**  | XXXX |
-| **Total Test Files**     | XX |
-| **Unit Tests Written**   | XX |
-| **Test Coverage**        | XX.X% (using LCOV) |
-| **Data Layer Coverage**  | XX.X% |
-| **Domain Layer Coverage**| XX.X% |
-| **Total Packages Used**  | XX |
+- 🔐 Secure storage of API key  
+- 💻 Responsive design (Only master–detail layout on tablets is supported)  
+- 🧪 Complete test strategy  
+- 🔀 Routing library  
+- 🎨 Theming policy  
 
 ---
 
-## 🧪 Testing Strategy
+## 🧠 Things to keep in mind
 
-- **Domain Layer**  
-  - 100% unit-tested (entities, use cases, Either/Failure helpers)
-
-- **Data Layer**  
-  - Repository logic unit-tested (mocking ApiService)
-  - Models and API services manually validated
-
-| Layer        | Tests Approach |
-|--------------|----------------|
-| Domain       | Pure unit tests |
-| Data Layer   | Mock-based tests (mocktail) |
-| Injection    | Minimal bootstrapping verification |
-| Main App UI  | Manual smoke tests (no widget tests) |
+- 🧪 The app is testable, and I started development using TDD principles.  
+- 🏛️ Domain layer is isolated and holds business rules.  
+- 📦 A data layer exists to fetch and cache remote data.  
+- 🧱 I defined three packages:
+  - `domain_layer`: Pure Dart
+  - `data_layer`: Depends on domain
+  - `injection_layer`: Manages DI
+- 📱 The main app depends only on the domain and injection
 
 ---
 
-## 🏗️ Implemented Modules / Features
+## 🔌 API Integration
 
-| Module | Status | Notes |
-|--------|--------|-------|
-| **Domain Layer** | ✅ Completed | Fully decoupled, pure Dart |
-| **Data Layer** | ✅ Completed | Retrofit, Dio, Models |
-| **Injection Layer** | ✅ Completed | Centralized GetIt setup |
-| **Main App** | 🛠️ In Progress | Basic ListView and UI |
-| **Testing** | ✅ Completed | Domain + Data layer unit-tested |
+- 🔗 Used NewsAPI to fetch top US news headlines  
+- ⏰ Time range: from yesterday until now  
+- 🔍 Queried: Microsoft, Apple, Google, Tesla  
+- 📚 Endpoint: `/v2/everything`  
+- ✅ Aggregated via 4 API calls (one per company)  
+- ⚙️ Used `sortBy=publishedAt`, `language=en`, `pageSize=25`
 
----
-
-## 🔒 Dependency Rules Followed
-domain/ → No dependencies data_layer/ → Depends only on domain injection/ → Depends on domain + data_layer main_app/ → Depends only on domain + injection
-
-
-✅ No direct coupling between the main app and data layer.
-
----
-
-## 📅 Timeline
-
-| Milestone | Date Achieved |
-|-----------|---------------|
-| Architecture Design Finalized | April 28 |
-| Domain Layer Complete + Tested | April 29 |
-| Data Layer Complete + Tested | April 30 |
-| UI Layer + Submission | May 2 (planned) |
+```dart
+@GET('/everything')
+Future<GetTopHeadlineResponse> getTopHeadlinesUS(
+  @Query('apiKey') String apiKey,
+  @Query('page') int page,
+  @Query('pageSize') int pageSize,
+  @Query('q') String query,
+  @Query('from') String fromDate,
+  @Query('to') String toDate,
+  @Query('language') String language,
+);
+```
 
 ---
 
-## 🔥 Highlights
+## 🖼️ User Interface
 
-- First-time applying **package-based Clean Architecture** for Flutter.
-- Strict boundary enforcement between layers.
-- High code coverage to ensure robustness.
-- Focus on maintainability, scalability, and testability.
+- 📋 `NewsListPage` displays headlines  
+- 🚀 On launch, `GetTopHeadlinesUS` is triggered  
+- 🔁 Uses `infinite_scroll_pagination`  
+- 🎨 Query type shown visually  
+- 📄 `NewsDetailPage` displays full article  
+- 📱 Responsive:
+  - Mobile: navigates to detail screen
+  - Tablet: master–detail layout  
 
 ---
 
-# ✅ Ready for Final Submission by **Friday, May 2nd, 9:00 AM**
+## 📦 Caching & Offline Handling
 
+- 🗂️ Uses `hive` for local cache  
+- 🌐 Uses `connectivity_plus` to detect connection  
+- 🔄 If offline, loads from cache  
+- ❗ Shows error if no cache and offline  
 
+---
+
+## 🧱 Architecture
+
+- ✅ Clean Architecture  
+- 🧼 Proper layering and isolation  
+- 🔗 No cross-layer dependency leaks  
+- 📦 Follows package-based modular design  
+- 🧩 Uses Cubit for business logic and state  
+
+---
+
+## 🧪 Testing
+
+- ✅ Domain models are tested  
+- 🚧 Full testing not implemented  
+- 🧪 Architecture supports testability  
+- ✅ Used Equatable, Either, Failure patterns  
+
+---
+
+## 📌 Additional Notes
+
+- 📍 `query` is preserved and shown with each article  
+- 📑 Detail screen is clean and scalable  
+- 🧰 Only minimal third-party dependencies used
