@@ -104,3 +104,4 @@ Future<GetTopHeadlineResponse> getTopHeadlinesUS(
 - 📍 `query` is preserved and shown with each article  
 - 📑 Detail screen is clean and scalable  
 - 🧰 Only minimal third-party dependencies used
+- 📍Splash page added to make app more like a real app.
