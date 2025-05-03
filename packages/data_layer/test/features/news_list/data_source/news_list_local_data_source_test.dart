@@ -36,18 +36,7 @@ void main() {
   group("cacheArticles() method tests", () {
     late List<ArticleModel> tArticles;
     setUp(() {
-      tArticles = List.generate(3, (index) {
-        return ArticleModel(
-            title: "$index Title",
-            description: "$index description",
-            url: "$index url",
-            urlToImage: "$index urlToImage",
-            publishedAt: DateTime.now().subtract(Duration(days: index)),
-            content: "$index content",
-            source: Source(id: "$index id", name: "$index name"),
-            query: "$index query",
-            author: "$index author");
-      });
+      tArticles = _createTestArticles();
     });
 
     test(
@@ -63,5 +52,39 @@ void main() {
       isBoxOpen();
       expect(testBox.values.length, equals(3));
     });
+  });
+
+  group("addArticles method tests", () {
+    late List<ArticleModel> tArticles;
+    setUp(() {
+      tArticles = _createTestArticles();
+    });
+    test("addArticles must not clear the previously added articles", () async {
+      //arrange
+
+      //act
+
+      await localDataSource.addArticles(tArticles);
+      await localDataSource.addArticles(tArticles);
+
+      //assert
+      expect(testBox.values.length, equals(6));
+      expect(testBox.values.elementAt(5).title, equals("2 Title"));
+    });
+  });
+}
+
+List<ArticleModel> _createTestArticles() {
+  return List.generate(3, (index) {
+    return ArticleModel(
+        title: "$index Title",
+        description: "$index description",
+        url: "$index url",
+        urlToImage: "$index urlToImage",
+        publishedAt: DateTime.now().subtract(Duration(days: index)),
+        content: "$index content",
+        source: Source(id: "$index id", name: "$index name"),
+        query: "$index query",
+        author: "$index author");
   });
 }
