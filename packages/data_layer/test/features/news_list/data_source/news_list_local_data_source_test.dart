@@ -72,6 +72,26 @@ void main() {
       expect(testBox.values.elementAt(5).title, equals("2 Title"));
     });
   });
+
+  group("clear method", () {
+    late List<ArticleModel> tArticles;
+    setUp(() {
+      tArticles = _createTestArticles();
+    });
+
+    test("the box must get cleared after clear method get called", () async {
+      //arrange
+
+      //act
+
+      await localDataSource.addArticles(tArticles);
+      await localDataSource.clear();
+
+      //assert
+
+      expect(testBox.values.isEmpty, isTrue);
+    });
+  });
 }
 
 List<ArticleModel> _createTestArticles() {
