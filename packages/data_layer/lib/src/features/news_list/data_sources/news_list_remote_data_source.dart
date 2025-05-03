@@ -19,6 +19,7 @@ abstract class NewsListRemoteDataSource {
       @Query('q') String query,
       @Query('from') String fromDate,
       @Query('to') String toDate,
-      @Query("language") String language
+      @Query("language") String language,
+      @Query("sortBy") String sortBy,
   );
 }

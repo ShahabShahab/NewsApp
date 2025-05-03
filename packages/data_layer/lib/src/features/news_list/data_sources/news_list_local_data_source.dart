@@ -4,7 +4,11 @@ import 'package:data_layer/src/features/news_list/models/article_model.dart';
 import 'package:hive/hive.dart';
 
 class NewsListLocalDataSource {
-  Future<Box<ArticleModel>> _box() => Hive.openBox<ArticleModel>(newsBox);
+  final String boxName;
+
+  NewsListLocalDataSource({this.boxName = newsBox});
+
+  Future<Box<ArticleModel>> _box() => Hive.openBox<ArticleModel>(boxName);
 
   Future<void> cacheArticles(List<ArticleModel> models) async {
     final box = await _box();
