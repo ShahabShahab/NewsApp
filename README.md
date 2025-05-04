@@ -1,4 +1,17 @@
 
+### ✅ What has been added since the last submission
+
+
+## ✅ Offline-First Architecture Verified with 100% Test Coverage
+
+The `NewsListLocalDataSource`, built using Hive for local persistence,  
+has been thoroughly verified through a dedicated test suite.  
+This suite confirms reliable offline-first behavior across all edge cases.
+
+During this process, several areas of business logic were  
+refined, cleaned up, and improved as part of the test-driven development flow.
+
+
 ## ✅ What I cared most about in development
 
 - 🧩 App Architecture  
