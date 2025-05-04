@@ -1,4 +1,3 @@
-
 import 'package:data_layer/src/core/constants.dart';
 import 'package:data_layer/src/features/news_list/repositories/news_list_repository_impl.dart';
 import 'package:domain_layer/domain_layer.dart';
@@ -42,7 +41,7 @@ void main() {
       //assert
       expect(
           result,
-          equals(Left<DomainFailure, List<Article>>(
+          equals(Left(
               value: ServerFailure(message: notConnectedToTheInternetError))));
 
       verifyInOrder([
