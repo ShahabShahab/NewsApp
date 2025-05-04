@@ -1,8 +1,7 @@
+## 🚀 What has been added since the last submission ##
 
-### ✅ What has been added since the last submission
 
-
-## ✅ Offline-First Architecture Verified with 100% Test Coverage
+### ✅ Offline-First Architecture Verified with 100% Test Coverage
 
 The `NewsListLocalDataSource`, built using Hive for local persistence,  
 has been thoroughly verified through a dedicated test suite.  
