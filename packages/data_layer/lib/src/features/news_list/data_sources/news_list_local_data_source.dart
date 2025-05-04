@@ -26,11 +26,11 @@ class NewsListLocalDataSource {
     final box = await _box();
     final articleList = box.values.toList();
     final offset = ((page - 1) * pageSize);
-    if (offset > articleList.length) {
+    if (_hasAlreadyReachedTheEndOfTheList(offset, articleList.length)) {
       throw offlineFirstListHasAlreadyEndedErrorMessage;
     } else if (_hasReachedTheEndOfTheList(offset, articleList.length)) {
       return [];
-    } else if (_hasFewerElementsThanThePageSize(
+    } else if (_isAboutToReachTheEndOfTheList(
         offset, pageSize, articleList.length)) {
       return box.values.toList().sublist(offset);
     } else {
@@ -38,10 +38,13 @@ class NewsListLocalDataSource {
     }
   }
 
+  bool _hasAlreadyReachedTheEndOfTheList(int offset, int elementsListLength) =>
+      offset > elementsListLength;
+
   bool _hasReachedTheEndOfTheList(int offset, int elementsListLength) =>
       offset == elementsListLength;
 
-  bool _hasFewerElementsThanThePageSize(
+  bool _isAboutToReachTheEndOfTheList(
           int offset, int pageSize, int elementsListLength) =>
       offset + pageSize > elementsListLength;
 
