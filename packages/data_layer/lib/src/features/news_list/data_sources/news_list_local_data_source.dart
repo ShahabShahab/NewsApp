@@ -4,7 +4,11 @@ import 'package:data_layer/src/features/news_list/models/article_model.dart';
 import 'package:hive/hive.dart';
 
 class NewsListLocalDataSource {
-  Future<Box<ArticleModel>> _box() => Hive.openBox<ArticleModel>(newsBox);
+  final String boxName;
+
+  NewsListLocalDataSource({this.boxName = newsBox});
+
+  Future<Box<ArticleModel>> _box() => Hive.openBox<ArticleModel>(boxName);
 
   Future<void> cacheArticles(List<ArticleModel> models) async {
     final box = await _box();
@@ -17,22 +21,32 @@ class NewsListLocalDataSource {
     await box.addAll(models);
   }
 
-  Future<List<ArticleModel>> getCachedArticles(int page) async {
+  Future<List<ArticleModel>> getCachedArticles(int page,
+      {int pageSize = pageSize}) async {
     final box = await _box();
     final articleList = box.values.toList();
-    if (articleList.isEmpty) return [];
-    if (page == 1) {
-      return articleList.sublist(0, pageSize);
+    final offset = ((page - 1) * pageSize);
+    if (_hasAlreadyReachedTheEndOfTheList(offset, articleList.length)) {
+      throw offlineFirstListHasAlreadyEndedErrorMessage;
+    } else if (_hasReachedTheEndOfTheList(offset, articleList.length)) {
+      return [];
+    } else if (_isAboutToReachTheEndOfTheList(
+        offset, pageSize, articleList.length)) {
+      return box.values.toList().sublist(offset);
     } else {
-      final offset = ((page - 1) * pageSize);
-      if (offset >= articleList.length) {
-        return [];
-      } else if (offset + pageSize > articleList.length) {
-        return box.values.toList().sublist(offset);
-      }
       return box.values.toList().sublist(offset, offset + pageSize);
     }
   }
+
+  bool _hasAlreadyReachedTheEndOfTheList(int offset, int elementsListLength) =>
+      offset > elementsListLength;
+
+  bool _hasReachedTheEndOfTheList(int offset, int elementsListLength) =>
+      offset == elementsListLength;
+
+  bool _isAboutToReachTheEndOfTheList(
+          int offset, int pageSize, int elementsListLength) =>
+      offset + pageSize > elementsListLength;
 
   Future<void> clear() async {
     final box = await _box();

@@ -72,21 +72,14 @@ class NewsListRepositoryImpl implements NewsRepository {
 
   Future<List<ArticleModel>> _fetchArticlesFromRemote(int page) async {
     final now = DateTime.now();
-    final yesterday = now.subtract(const Duration(days: 3));
+    final yesterday = now.subtract(const Duration(days: 1));
     final fromDate = yesterday.toString().split(" ")[0];
     final toDate = now.toString().split(" ")[0];
     final queries = ['Microsoft', 'Apple', 'Google', 'Tesla'];
     final List<ArticleModel> allArticles = [];
     for (final q in queries) {
       final result = await remoteDataSource.getTopHeadlinesUS(
-        apiKey,
-        page,
-        pageSize,
-        q,
-        fromDate,
-        toDate,
-        'en',
-      );
+          apiKey, page, pageSize, q, toDate, fromDate, 'en', 'publishedAt');
       allArticles.addAll(result.articles!
           .map((element) => element.copyWith(
               title: element.title,

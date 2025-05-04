@@ -20,6 +20,7 @@ class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
 
   String? baseUrl;
 
+
   @override
   Future<GetTopHeadlineResponse> getTopHeadlinesUS(
     String apiKey,
@@ -29,6 +30,7 @@ class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
     String fromDate,
     String toDate,
     String language,
+    String sortBy,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -39,6 +41,7 @@ class _NewsListRemoteDataSource implements NewsListRemoteDataSource {
       r'from': fromDate,
       r'to': toDate,
       r'language': language,
+      r'sortBy': sortBy,
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
