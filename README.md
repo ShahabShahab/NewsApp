@@ -10,6 +10,8 @@ This suite confirms reliable offline-first behavior across all edge cases.
 During this process, several areas of business logic were  
 refined, cleaned up, and improved as part of the test-driven development flow.
 
+![App Demo](Tablet-view-final.gif)
+
 
 ## ✅ What I cared most about in development
 
