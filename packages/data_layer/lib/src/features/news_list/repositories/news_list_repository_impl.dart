@@ -31,8 +31,7 @@ class NewsListRepositoryImpl implements NewsRepository {
         final response = await localDataSource.getCachedArticles(page);
         if (response.isEmpty) {
           return Left(
-              value: ServerFailure(
-                  message: "Your are not connected to the internet."));
+              value: ServerFailure(message: notConnectedToTheInternetError));
         }
         articles = _convertArticleModelsToArticleEntities(response);
       } else {
