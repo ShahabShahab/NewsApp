@@ -1,4 +1,5 @@
 import 'package:data_layer/data_layer.dart';
+import 'package:data_layer/src/core/constants.dart';
 import 'package:data_layer/src/features/news_list/models/article_model.dart';
 import 'package:domain_layer/domain_layer.dart';
 import 'package:hive/hive.dart';
@@ -92,10 +93,92 @@ void main() {
       expect(testBox.values.isEmpty, isTrue);
     });
   });
+
+  group("getCachedArticles", () {
+    late List<ArticleModel> tArticles;
+    setUp(() {
+      tArticles = _createTestArticles();
+    });
+    test("must return an empty list once the box is empty", () async {
+      //arrange
+
+      //act
+
+      final result = await localDataSource.getCachedArticles(1);
+
+      //assert
+
+      expect(result.isEmpty, isTrue);
+    });
+
+    test("once the list has fewer elements than the page size", () async {
+      //arrange
+
+      tArticles = _createTestArticles(numberOfItems: 17);
+      await localDataSource.cacheArticles(tArticles);
+
+      //act
+
+      final result = await localDataSource.getCachedArticles(1, pageSize: 25);
+
+      //assert
+
+      expect(result.length, equals(17));
+    });
+
+    test("once the list has the exact number of elements of the page size",
+        () async {
+      //arrange
+
+      tArticles = _createTestArticles(numberOfItems: 17);
+      await localDataSource.cacheArticles(tArticles);
+
+      //act
+
+      final result = await localDataSource.getCachedArticles(1, pageSize: 17);
+
+      //assert
+
+      expect(result.length, equals(17));
+    });
+
+    test(
+        "once the number of elements in the list is greater than the page size, the returned elements is equal to the page size",
+        () async {
+      //arrange
+      final tPageSize = 17;
+      tArticles = _createTestArticles(numberOfItems: 19);
+      await localDataSource.cacheArticles(tArticles);
+
+      //act
+      final result =
+          await localDataSource.getCachedArticles(1, pageSize: tPageSize);
+      //assert
+      expect(result.length, equals(tPageSize));
+    });
+
+    test(
+        "once the offset is bigger than the element size, an exception String should be thrown",
+        () async {
+      //arrange
+
+      final tPageSize = 20;
+      tArticles = _createTestArticles(numberOfItems: 22);
+      await localDataSource.cacheArticles(tArticles);
+      //act
+      //assert
+      expect(
+        () async =>
+            await localDataSource.getCachedArticles(3, pageSize: tPageSize),
+        throwsA(
+            predicate((e) => e == offlineFirstListHasAlreadyEndedErrorMessage)),
+      );
+    });
+  });
 }
 
-List<ArticleModel> _createTestArticles() {
-  return List.generate(3, (index) {
+List<ArticleModel> _createTestArticles({int numberOfItems = 3}) {
+  return List.generate(numberOfItems, (index) {
     return ArticleModel(
         title: "$index Title",
         description: "$index description",

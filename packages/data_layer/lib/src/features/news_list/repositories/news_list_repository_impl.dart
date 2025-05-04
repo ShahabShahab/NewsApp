@@ -79,15 +79,7 @@ class NewsListRepositoryImpl implements NewsRepository {
     final List<ArticleModel> allArticles = [];
     for (final q in queries) {
       final result = await remoteDataSource.getTopHeadlinesUS(
-        apiKey,
-        page,
-        pageSize,
-        q,
-        toDate,
-        fromDate,
-        'en',
-        'publishedAt'
-      );
+          apiKey, page, pageSize, q, toDate, fromDate, 'en', 'publishedAt');
       allArticles.addAll(result.articles!
           .map((element) => element.copyWith(
               title: element.title,

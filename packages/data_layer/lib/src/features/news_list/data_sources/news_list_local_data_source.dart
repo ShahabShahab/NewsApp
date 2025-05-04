@@ -21,22 +21,29 @@ class NewsListLocalDataSource {
     await box.addAll(models);
   }
 
-  Future<List<ArticleModel>> getCachedArticles(int page) async {
+  Future<List<ArticleModel>> getCachedArticles(int page,
+      {int pageSize = pageSize}) async {
     final box = await _box();
     final articleList = box.values.toList();
-    if (articleList.isEmpty) return [];
-    if (page == 1) {
-      return articleList.sublist(0, pageSize);
+    final offset = ((page - 1) * pageSize);
+    if (offset > articleList.length) {
+      throw offlineFirstListHasAlreadyEndedErrorMessage;
+    } else if (_hasReachedTheEndOfTheList(offset, articleList.length)) {
+      return [];
+    } else if (_hasFewerElementsThanThePageSize(
+        offset, pageSize, articleList.length)) {
+      return box.values.toList().sublist(offset);
     } else {
-      final offset = ((page - 1) * pageSize);
-      if (offset >= articleList.length) {
-        return [];
-      } else if (offset + pageSize > articleList.length) {
-        return box.values.toList().sublist(offset);
-      }
       return box.values.toList().sublist(offset, offset + pageSize);
     }
   }
+
+  bool _hasReachedTheEndOfTheList(int offset, int elementsListLength) =>
+      offset == elementsListLength;
+
+  bool _hasFewerElementsThanThePageSize(
+          int offset, int pageSize, int elementsListLength) =>
+      offset + pageSize > elementsListLength;
 
   Future<void> clear() async {
     final box = await _box();
