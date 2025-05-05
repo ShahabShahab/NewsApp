@@ -8,6 +8,7 @@ import 'package:data_layer/src/core/server_error.dart';
 import 'package:data_layer/src/features/news_list/data_sources/news_list_local_data_source.dart';
 import 'package:data_layer/src/features/news_list/data_sources/news_list_remote_data_source.dart';
 import 'package:data_layer/src/features/news_list/models/article_model.dart';
+import 'package:data_layer/src/features/news_list/models/get_top_headline_response.dart';
 import 'package:dio/dio.dart';
 import 'package:domain_layer/domain_layer.dart';
 
@@ -33,7 +34,7 @@ class NewsListRepositoryImpl implements NewsRepository {
           return Left(
               value: ServerFailure(message: notConnectedToTheInternetError));
         }
-        articles = _convertArticleModelsToArticleEntities(response);
+        articles = convertArticleModelsToArticleEntities(response);
       } else {
         final response = await _fetchArticlesFromRemote(page);
         if (page == 1) {
@@ -41,7 +42,7 @@ class NewsListRepositoryImpl implements NewsRepository {
         } else {
           await localDataSource.addArticles(response);
         }
-        articles = _convertArticleModelsToArticleEntities(response);
+        articles = convertArticleModelsToArticleEntities(response);
       }
       return Right(value: articles);
     } on DioException catch (e) {
@@ -52,7 +53,7 @@ class NewsListRepositoryImpl implements NewsRepository {
     }
   }
 
-  List<Article> _convertArticleModelsToArticleEntities(
+  List<Article> convertArticleModelsToArticleEntities(
       List<ArticleModel> articleModels) {
     return articleModels
         .map((element) => Article(
@@ -67,6 +68,10 @@ class NewsListRepositoryImpl implements NewsRepository {
               content: element.content ?? "",
             ))
         .toList();
+  }
+
+  List<ArticleModel> getArticleModels(final GetTopHeadlineResponse response) {
+    return response.articles!;
   }
 
   Future<List<ArticleModel>> _fetchArticlesFromRemote(int page) async {

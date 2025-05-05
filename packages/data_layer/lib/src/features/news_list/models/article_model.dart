@@ -1,12 +1,13 @@
 import 'package:data_layer/src/core/local_data_base_type_ids.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:utils/utils.dart';
 
 part 'article_model.g.dart';
 
 @HiveType(typeId: articleTypeID)
 @JsonSerializable()
-class ArticleModel {
+class ArticleModel extends Equatable {
   @HiveField(0)
   final String? title;
   @HiveField(1)
@@ -64,6 +65,19 @@ class ArticleModel {
       _$ArticleModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ArticleModelToJson(this);
+
+  @override
+  List<Object?> get props => [
+        title,
+        description,
+        url,
+        urlToImage,
+        publishedAt,
+        content,
+        query,
+        author,
+        source
+      ];
 }
 
 /// id : "the-verge"
@@ -71,18 +85,21 @@ class ArticleModel {
 
 @HiveType(typeId: articleSourceTypeID)
 @JsonSerializable()
-class Source {
+class Source extends Equatable {
   Source({
     this.id,
     this.name,
   });
 
   @HiveField(0)
-  String? id;
+  final String? id;
   @HiveField(1)
-  String? name;
+  final String? name;
 
   factory Source.fromJson(Map<String, dynamic> json) => _$SourceFromJson(json);
 
   Map<String, dynamic> toJson() => _$SourceToJson(this);
+
+  @override
+  List<Object?> get props => [id, name];
 }

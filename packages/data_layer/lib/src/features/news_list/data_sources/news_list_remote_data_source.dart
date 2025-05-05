@@ -1,4 +1,3 @@
-import 'package:data_layer/src/features/news_list/models/article_model.dart';
 import 'package:data_layer/src/features/news_list/models/get_top_headline_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';

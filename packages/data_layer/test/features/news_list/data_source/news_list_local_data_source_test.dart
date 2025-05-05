@@ -8,6 +8,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
+import '../../../utils/utils.dart';
+
 void main() {
   late NewsListLocalDataSource localDataSource;
   const testBoxName = "test_box_name";
@@ -37,7 +39,7 @@ void main() {
   group("cacheArticles() method tests", () {
     late List<ArticleModel> tArticles;
     setUp(() {
-      tArticles = _createTestArticles();
+      tArticles = createTestArticleModels();
     });
 
     test(
@@ -58,7 +60,7 @@ void main() {
   group("addArticles method tests", () {
     late List<ArticleModel> tArticles;
     setUp(() {
-      tArticles = _createTestArticles();
+      tArticles = createTestArticleModels();
     });
     test("addArticles must not clear the previously added articles", () async {
       //arrange
@@ -77,7 +79,7 @@ void main() {
   group("clear method", () {
     late List<ArticleModel> tArticles;
     setUp(() {
-      tArticles = _createTestArticles();
+      tArticles = createTestArticleModels();
     });
 
     test("the box must get cleared after clear method get called", () async {
@@ -97,7 +99,7 @@ void main() {
   group("getCachedArticles", () {
     late List<ArticleModel> tArticles;
     setUp(() {
-      tArticles = _createTestArticles();
+      tArticles = createTestArticleModels();
     });
     test("must return an empty list once the box is empty", () async {
       //arrange
@@ -114,7 +116,7 @@ void main() {
     test("once the list has fewer elements than the page size", () async {
       //arrange
 
-      tArticles = _createTestArticles(numberOfItems: 17);
+      tArticles = createTestArticleModels(numberOfItems: 17);
       await localDataSource.cacheArticles(tArticles);
 
       //act
@@ -130,7 +132,7 @@ void main() {
         () async {
       //arrange
 
-      tArticles = _createTestArticles(numberOfItems: 17);
+      tArticles = createTestArticleModels(numberOfItems: 17);
       await localDataSource.cacheArticles(tArticles);
 
       //act
@@ -147,7 +149,7 @@ void main() {
         () async {
       //arrange
       final tPageSize = 17;
-      tArticles = _createTestArticles(numberOfItems: 19);
+      tArticles = createTestArticleModels(numberOfItems: 19);
       await localDataSource.cacheArticles(tArticles);
 
       //act
@@ -163,7 +165,7 @@ void main() {
       //arrange
 
       final tPageSize = 20;
-      tArticles = _createTestArticles(numberOfItems: 22);
+      tArticles = createTestArticleModels(numberOfItems: 22);
       await localDataSource.cacheArticles(tArticles);
       //act
       //assert
@@ -174,20 +176,5 @@ void main() {
             predicate((e) => e == offlineFirstListHasAlreadyEndedErrorMessage)),
       );
     });
-  });
-}
-
-List<ArticleModel> _createTestArticles({int numberOfItems = 3}) {
-  return List.generate(numberOfItems, (index) {
-    return ArticleModel(
-        title: "$index Title",
-        description: "$index description",
-        url: "$index url",
-        urlToImage: "$index urlToImage",
-        publishedAt: DateTime.now().subtract(Duration(days: index)),
-        content: "$index content",
-        source: Source(id: "$index id", name: "$index name"),
-        query: "$index query",
-        author: "$index author");
   });
 }
