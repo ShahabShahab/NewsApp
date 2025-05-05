@@ -19,6 +19,8 @@ dependencies:
     path: packages/injection_layer
   resourcing:
     path: packages/resourcing
+  utils:
+    path: packages/utils
   cached_network_image: ^3.4.1
   flutter_svg: ^2.1.0
   infinite_scroll_pagination: ^5.0.0

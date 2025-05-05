@@ -8,9 +8,8 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  equatable: ^2.0.7
-  # path: ^1.8.0
-
+  utils:
+    path: ../utils
 dev_dependencies:
   lints: ^5.0.0
   mocktail: ^1.0.4

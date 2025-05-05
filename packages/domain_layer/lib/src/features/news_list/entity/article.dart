@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import 'package:utils/utils.dart';
 
 class Article extends Equatable {
   final String query;
@@ -24,6 +24,7 @@ class Article extends Equatable {
 
   @override
   List<Object?> get props => [
+        query,
         title,
         description,
         url,
