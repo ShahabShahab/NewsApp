@@ -7,12 +7,10 @@ The `NewsListLocalDataSource`, built using Hive for local persistence,
 has been thoroughly verified through a dedicated test suite.  
 This suite confirms reliable offline-first behavior across all edge cases.
 
-### 2) newsListrepostoryImpl getNewsHeadlinesUs test suite
+### 2) newsListrepostoryImpl getNewsHeadlinesUs with 46% Test Coverage
 The `NewsListRepositoryImpl`, responsible for orchestrating remote and local data access,  
 has been partially tested through a dedicated offline-first scenario where the network connection is not established.  
 This test confirms fallback behavior to local persistence under network failure.
-
-Currently, **46% test coverage** has been achieved for this repository implementation.
 
 
 During this process, several areas of business logic were  
